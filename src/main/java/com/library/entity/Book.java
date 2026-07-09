@@ -1,9 +1,21 @@
 package com.library.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
+    @Id
     private int id;
+
+    @NotBlank(message = "Title cannot be empty")
     private String title;
+
+    @NotBlank(message = "Author cannot be empty")
     private String author;
 
     public Book() {
