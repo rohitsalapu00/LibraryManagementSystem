@@ -1,90 +1,34 @@
-# 🚀 Dockerized Jenkins Server for Library Management System
+<div align="center">
 
-## 📌 Project Overview
+# 🚀 Dockerized Jenkins Server
 
-This project demonstrates a complete Continuous Integration (CI) workflow by running Jenkins inside a Docker container to automate the build process of a Spring Boot Library Management System.
+### Automating the Build Process of a Spring Boot Application using Jenkins running inside Docker
 
-The project showcases modern DevOps practices including:
-
-- Version Control using Git & GitHub
-- Containerized Jenkins using Docker
-- Automated Build Execution using Jenkins Pipeline
-- Maven Build Automation
-- Spring Boot Application Build
-- Service Management using Docker
-- Continuous Integration (CI) Workflow
-
-The Library Management System is a Spring Boot application that manages books and demonstrates how Jenkins can automatically build Java applications whenever code changes are pushed to GitHub.
+<p align="center">
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white"/>
+<img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white"/>
+<img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/>
+<img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge"/>
+</p>
 
 ---
 
-# 🎯 Project Objective
+### 📌 Project Overview
 
-Traditional Java application deployment involves:
+</div>
 
-```
-Developer writes code
+This project demonstrates how to **run Jenkins inside a Docker container** and automate the build process of a **Spring Boot Library Management System**.
 
-        ↓
-
-Manual compilation
-
-        ↓
-
-Manual Maven build
-
-        ↓
-
-Manual deployment
-
-        ↓
-
-Different environment issues
-```
-
-### Problems
-
-- Time-consuming build process
-- Manual deployment errors
-- Dependency management issues
-- Difficult collaboration
-- No build automation
-
-This project solves these issues using:
-
-```
-Developer
-
-    ↓
-
-GitHub Repository
-
-    ↓
-
-Dockerized Jenkins
-
-    ↓
-
-Git Clone
-
-    ↓
-
-Maven Build
-
-    ↓
-
-Spring Boot JAR
-
-    ↓
-
-Build Success
-```
+It implements a **Continuous Integration (CI)** workflow where Jenkins automatically clones the project from GitHub, builds it using Maven, generates an executable Spring Boot JAR, and displays the build status.
 
 ---
 
-# 🏗 System Architecture
+# 🏗 Architecture
 
-```
+```text
                  Developer
 
                       │
@@ -97,65 +41,113 @@ Build Success
 
                       ▼
 
-          Dockerized Jenkins Server
-
-              (Running in Docker)
+      Dockerized Jenkins Container
 
                       │
 
                       ▼
 
-             Jenkins Pipeline
+            Jenkins Pipeline
 
                       │
 
                       ▼
 
-             Maven Build Process
+             Maven Build
 
                       │
 
                       ▼
 
-        Spring Boot Library Application
+      Spring Boot Application
 
                       │
 
                       ▼
 
-         Executable JAR Generated
+         Executable JAR File
 ```
 
 ---
 
-# ⚙️ Technology Stack
+# 🎯 Project Objective
 
-## Backend
+Traditional Java development requires:
 
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- Hibernate
-- MySQL
+- Manual compilation
+- Manual Maven execution
+- Manual deployment
+- Environment setup on every machine
 
-## Build Tool
+This project automates the complete build process using Jenkins.
 
-- Apache Maven
+```text
+Developer
 
-## DevOps Tools
+      │
 
-- Git
-- GitHub
-- Docker
-- Jenkins
-- WSL2
-- Ubuntu
+      ▼
+
+GitHub Push
+
+      │
+
+      ▼
+
+Jenkins Pipeline
+
+      │
+
+      ▼
+
+Maven Build
+
+      │
+
+      ▼
+
+Spring Boot JAR
+
+      │
+
+      ▼
+
+Build Success
+```
+
+---
+
+# ⚙️ Technologies Used
+
+| Technology | Purpose |
+|------------|----------|
+| 🐳 Docker | Containerization |
+| 🤖 Jenkins | CI Server |
+| ☕ Java 17 | Programming Language |
+| 🍃 Spring Boot | Backend Framework |
+| 📦 Maven | Build Automation |
+| 🐙 Git | Version Control |
+| 🌐 GitHub | Source Code Repository |
+| 🐧 Ubuntu (WSL2) | Linux Environment |
+
+---
+
+# ✨ Features
+
+- ✅ Jenkins running inside Docker
+- ✅ Automated GitHub repository cloning
+- ✅ Spring Boot build automation
+- ✅ Maven dependency management
+- ✅ Executable JAR generation
+- ✅ Docker-based service management
+- ✅ Continuous Integration using Jenkins Pipeline
+- ✅ Persistent Jenkins data using Docker Volumes
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 LibraryManagementSystem
 
 │
@@ -164,234 +156,103 @@ LibraryManagementSystem
 
 │   ├── main/
 
-│   │   ├── java/
-
-│   │   │   └── com/library/
-
-│   │   │       ├── controller/
-
-│   │   │       ├── entity/
-
-│   │   │       ├── repository/
-
-│   │   │       ├── service/
-
-│   │   │       ├── config/
-
-│   │   │       └── exception/
-
-│   │   │
-
-│   │   └── resources/
-
-│   │
-
-│   └── test/
+│   ├── test/
 
 │
 
 ├── Dockerfile
 
-├── docker-compose.yml
-
 ├── Jenkinsfile
 
 ├── pom.xml
+
+├── docker-compose.yml
 
 └── README.md
 ```
 
 ---
 
-# ✨ Application Features
+# 🚀 CI Pipeline Workflow
 
-### Library Management
+```mermaid
+flowchart TD
 
-- Add New Books
-- View All Books
-- Update Book Details
-- Delete Books
+A[Developer] --> B[GitHub Repository]
 
-### REST API
+B --> C[Jenkins Pipeline]
 
-- GET /books
-- GET /books/{id}
-- POST /books
-- PUT /books/{id}
-- DELETE /books/{id}
+C --> D[Checkout Source Code]
 
-### Database
+D --> E[Maven Clean]
 
-- MySQL Integration
-- Spring Data JPA
-- Hibernate ORM
+E --> F[Maven Compile]
 
----
+F --> G[Maven Package]
 
-# 🐳 Dockerized Jenkins Server
+G --> H[Generate Spring Boot JAR]
 
-Docker is used to containerize Jenkins for consistent build automation.
-
-## Why Docker?
-
-Docker solves:
-
-> "Jenkins works on one machine but not another."
-
-Docker packages:
-
-- Jenkins
-- Java
-- Maven
-- Git
-- Docker CLI
-
-inside a single portable container.
-
----
-
-# Docker Image
-
-The custom Jenkins image includes:
-
-- Jenkins LTS
-- OpenJDK 21
-- Apache Maven
-- Git
-- Docker CLI
-
-Dockerfile
-
-```dockerfile
-FROM jenkins/jenkins:lts
-
-USER root
-
-RUN apt-get update && \
-    apt-get install -y maven git docker.io
-
-USER jenkins
+H --> I[Build Successful]
 ```
 
 ---
 
-# 🔄 Jenkins Pipeline Workflow
+# 🔄 Jenkins Pipeline Stages
 
-The Jenkins Pipeline automates the complete Java build process.
-
-```
-Developer
-
-    ↓
-
-git push
-
-    ↓
-
-GitHub Repository
-
-    ↓
-
-Jenkins Pipeline
-
-    ↓
-
-Checkout Source Code
-
-    ↓
-
-Compile Project
-
-    ↓
-
-Maven Build
-
-    ↓
-
-Generate Spring Boot JAR
-
-    ↓
-
-Build Successful
-```
+| Stage | Description |
+|--------|-------------|
+| Checkout | Clone project from GitHub |
+| Build | Compile project using Maven |
+| Package | Generate executable JAR |
+| Post Actions | Display build status |
 
 ---
 
-# Jenkins Pipeline Stages
+# 🐳 Docker Commands
 
-## Stage 1 : Checkout
-
-Clone latest source code from GitHub.
-
-```
-GitHub
-
-↓
-
-Jenkins Workspace
-```
-
----
-
-## Stage 2 : Build
-
-Compile Java source files.
-
-```
-mvn clean compile
-```
-
----
-
-## Stage 3 : Package
-
-Generate executable Spring Boot JAR.
-
-```
-mvn clean package
-```
-
----
-
-## Stage 4 : Post Actions
-
-Display build status.
-
-```
-Build completed successfully!
-```
-
----
-
-# 🐳 Service Management
-
-Manage Jenkins container using Docker.
-
-Start Jenkins
+### Build Jenkins Image
 
 ```bash
-docker start jenkins-server
+docker build -t my-jenkins .
 ```
 
-Stop Jenkins
+### Run Jenkins Container
 
 ```bash
-docker stop jenkins-server
+docker run -d \
+--name jenkins-server \
+-p 9090:8080 \
+-p 50000:50000 \
+-v C:\Jenkins\jenkins_home:/var/jenkins_home \
+-v //var/run/docker.sock:/var/run/docker.sock \
+my-jenkins
 ```
 
-Restart Jenkins
-
-```bash
-docker restart jenkins-server
-```
-
-View Running Containers
+### View Running Containers
 
 ```bash
 docker ps
 ```
 
-View Logs
+### Stop Jenkins
+
+```bash
+docker stop jenkins-server
+```
+
+### Start Jenkins
+
+```bash
+docker start jenkins-server
+```
+
+### Restart Jenkins
+
+```bash
+docker restart jenkins-server
+```
+
+### View Logs
 
 ```bash
 docker logs jenkins-server
@@ -399,9 +260,9 @@ docker logs jenkins-server
 
 ---
 
-# 🚀 Running the Project
+# 💻 Running the Project
 
-## 1. Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/rohitsalapu00/LibraryManagementSystem.git
@@ -413,40 +274,22 @@ Move into project
 cd LibraryManagementSystem
 ```
 
----
-
-## 2. Build Using Maven
+Build
 
 ```bash
 mvn clean package
 ```
 
----
-
-## 3. Run Spring Boot
+Run
 
 ```bash
 mvn spring-boot:run
 ```
 
-Application URL
+Application
 
 ```
 http://localhost:8081
-```
-
----
-
-## 4. Run Dockerized Jenkins
-
-```bash
-docker run -d \
---name jenkins-server \
--p 9090:8080 \
--p 50000:50000 \
--v C:\Jenkins\jenkins_home:/var/jenkins_home \
--v //var/run/docker.sock:/var/run/docker.sock \
-my-jenkins:latest
 ```
 
 Jenkins Dashboard
@@ -457,138 +300,243 @@ http://localhost:9090
 
 ---
 
-# 📌 CI Workflow Summary
+# 📊 Build Results
 
-```
-Code
+✅ Repository successfully cloned
 
-↓
+✅ Maven Build completed
+
+✅ Spring Boot compiled
+
+✅ Executable JAR generated
+
+✅ Jenkins Pipeline passed
+
+---
+
+# 📈 DevOps Workflow
+
+```text
+Write Code
+
+     │
+
+     ▼
 
 Git Commit
 
-↓
+     │
+
+     ▼
 
 GitHub Push
 
-↓
+     │
 
-Jenkins Pipeline
+     ▼
 
-↓
+Jenkins Trigger
 
-Maven Build
+     │
 
-↓
+     ▼
 
-Spring Boot JAR
+Clone Repository
 
-↓
+     │
 
-Build Success
+     ▼
+
+Compile Project
+
+     │
+
+     ▼
+
+Package Application
+
+     │
+
+     ▼
+
+Generate JAR
+
+     │
+
+     ▼
+
+Build Successful
 ```
 
 ---
 
-# Challenges Faced
+# ⚠ Challenges Faced
 
-## WSL Configuration
+### WSL Installation
 
-### Problem
+Configured WSL2 and Ubuntu to enable Docker Desktop.
 
-Docker Desktop required WSL2 configuration.
+### Docker Port Conflict
 
-### Solution
+Resolved port conflict by exposing Jenkins on **9090**.
 
-Installed Ubuntu and configured WSL2 successfully.
+### Maven Configuration
 
----
+Configured Maven inside Dockerized Jenkins.
 
-## Jenkins Tool Configuration
+### JDK Configuration
 
-### Problem
+Configured Java 17 for Jenkins Global Tool Configuration.
 
-JDK and Maven were not recognized.
+### Dependency Download
 
-### Solution
-
-Configured JDK17 and Maven paths inside Jenkins Global Tools.
+The first Maven build downloaded all project dependencies. Later builds became significantly faster due to caching.
 
 ---
 
-## Docker Port Conflict
+# 📚 Learning Outcomes
 
-### Problem
+Through this project I learned:
 
-Port 8080 was already occupied.
-
-### Solution
-
-Mapped Jenkins to port 9090.
-
----
-
-## Maven Dependencies
-
-### Problem
-
-Initial build took a long time.
-
-### Solution
-
-Maven downloaded all dependencies during the first build. Subsequent builds became much faster.
-
----
-
-# Future Enhancements
-
-- Add Docker image build stage
-- Push Docker images to Docker Hub
-- Deploy application on AWS EC2
-- Add Kubernetes deployment
-- Integrate SonarQube for code quality
-- Add automated testing stage
-- Configure GitHub Webhooks
-- Deploy using GitHub Actions
-
----
-
-# Learning Outcomes
-
-Through this project, I learned:
-
+- Docker Fundamentals
 - Jenkins Installation
-- Docker Containerization
-- Docker Image Creation
-- Docker Volume Management
-- Jenkins Pipeline
-- GitHub Integration
+- Dockerized Jenkins
+- WSL2 Configuration
 - Maven Build Automation
 - Spring Boot Build Process
+- GitHub Integration
+- Jenkins Pipeline
 - Continuous Integration (CI)
+- Docker Volumes
+- Docker Networking
 - Service Management using Docker
-- WSL2 Configuration
-- DevOps Fundamentals
 
 ---
 
-# 📊 Project Outcomes
+# 🎖 Project Outcomes
 
-✅ Containerized Jenkins Server
-
-✅ Automated Build Execution
-
-✅ GitHub Integration
-
-✅ Maven Build Automation
-
-✅ Spring Boot JAR Generation
-
-✅ Docker-based Service Management
+- ✅ Dockerized Jenkins Server
+- ✅ Automated Build Execution
+- ✅ Maven Integration
+- ✅ Spring Boot Build Automation
+- ✅ GitHub Integration
+- ✅ CI Pipeline Successfully Implemented
 
 ---
 
-# Conclusion
+# 🔮 Future Enhancements
 
-This project successfully demonstrates how Jenkins can be containerized using Docker to automate the build process of a Spring Boot application.
+- Docker Image Build Stage
+- Docker Hub Integration
+- SonarQube Code Analysis
+- Automated Unit Testing
+- Kubernetes Deployment
+- AWS EC2 Deployment
+- GitHub Webhooks
+- Continuous Deployment (CD)
 
-By integrating GitHub, Maven, Docker, and Jenkins, the project showcases a practical Continuous Integration (CI) workflow that reduces manual effort, improves build consistency, and prepares the application for future Continuous Deployment (CD) enhancements.
+---
+
+---
+
+# 👨‍💻 Developed By
+
+<div align="center">
+
+| **Salapu Rohit** | **Salla Vamsi Ram** | **Malla Jyothi Prakash** |
+|:----------------:|:-------------------:|:------------------------:|
+| B.Tech CSE | B.Tech CSE | B.Tech CSE |
+| Lovely Professional University | Lovely Professional University | Lovely Professional University |
+
+</div>
+
+---
+
+# 🤝 Contributors
+
+This project was collaboratively developed as part of a **DevOps learning initiative** to demonstrate how Jenkins can be containerized using Docker and integrated with a Spring Boot application for Continuous Integration (CI).
+
+### Team Responsibilities
+
+| Member | Contribution |
+|---------|--------------|
+| **Salapu Rohit** | Spring Boot Development, GitHub Repository Management |
+| **Salla Vamsi Ram** | Library Management System Development & Testing |
+| **Malla Jyothi Prakash** | Dockerized Jenkins Setup, WSL2 Configuration, Jenkins Pipeline, CI/CD Integration, Documentation |
+
+---
+
+# 📂 Project Repository
+
+🔗 **GitHub Repository**
+
+https://github.com/rohitsalapu00/LibraryManagementSystem
+
+---
+
+# 📊 Project Statistics
+
+| Category | Details |
+|----------|----------|
+| Project Type | DevOps CI Pipeline |
+| Backend Framework | Spring Boot |
+| Programming Language | Java 17 |
+| Build Tool | Maven |
+| CI Tool | Jenkins |
+| Container Platform | Docker |
+| Version Control | Git & GitHub |
+| Operating Environment | Ubuntu (WSL2) |
+| Pipeline Type | Declarative Jenkins Pipeline |
+
+---
+
+# 📌 Key Achievements
+
+- ✅ Successfully Dockerized Jenkins Server
+- ✅ Configured Jenkins Pipeline
+- ✅ Integrated GitHub Repository
+- ✅ Automated Maven Build Process
+- ✅ Generated Executable Spring Boot JAR
+- ✅ Configured Java & Maven in Jenkins
+- ✅ Implemented Continuous Integration Workflow
+- ✅ Managed Jenkins Services using Docker
+
+---
+
+# ⭐ Support the Project
+
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
+
+Your support encourages us to build more open-source projects and share our learning with the community.
+
+---
+
+# 📬 Connect With Us
+
+### 👨‍💻 Salapu Rohit
+
+GitHub: https://github.com/rohitsalapu00
+
+---
+
+### 👨‍💻 Malla Jyothi Prakash
+
+GitHub: https://github.com/mallajyothiprakash
+
+---
+
+### 👨‍💻 Salla Vamsi Ram
+
+GitHub: https://github.com/vamsiram24
+
+---
+
+<div align="center">
+
+## ⭐ Thank You for Visiting Our Repository ⭐
+
+**If you like this project, don't forget to leave a ⭐ on GitHub!**
+
+Made with ❤️ by the Library Management System Team
+
+</div>
