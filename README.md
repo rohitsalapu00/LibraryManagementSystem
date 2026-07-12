@@ -366,6 +366,29 @@ http://localhost:9090
 ---
 # 📸 Project Screenshots
 
+## 🏠 Home Page
+
+<p align="center">
+  <img src="screenshots/home.png" width="900" alt="Home Page"/>
+</p>
+
+---
+
+## 📚 View Books
+
+<p align="center">
+  <img src="screenshots/Books.png" width="900" alt="View Books"/>
+</p>
+
+---
+
+## ➕ Add Book
+
+<p align="center">
+  <img src="screenshots/AddBooks.png" width="900" alt="Add Book"/>
+</p>
+
+---
 ## 🐳 Docker Desktop
 
 Docker Desktop showing the custom Jenkins container running successfully.
