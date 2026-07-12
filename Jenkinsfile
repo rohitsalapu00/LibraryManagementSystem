@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -27,17 +28,39 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package -DskipTests'
             }
         }
+
+        stage('Build Backend Docker Image') {
+            steps {
+                sh 'docker build -t librarymanagementsystem-library-app .'
+            }
+        }
+
+        stage('Build Frontend Docker Image') {
+            steps {
+                dir('frontend') {
+                    sh 'docker build -t librarymanagementsystem-frontend .'
+                }
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh 'docker compose up --build -d'
+            }
+        }
+
     }
 
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Application Built and Deployed Successfully!'
         }
+
         failure {
-            echo 'Build failed.'
+            echo 'Pipeline Failed!'
         }
     }
 }

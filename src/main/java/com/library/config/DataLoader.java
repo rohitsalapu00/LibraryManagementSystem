@@ -13,8 +13,8 @@ public class DataLoader {
     CommandLineRunner loadData(BookRepository repository) {
         return args -> {
 
-            repository.save(new Book(1, "Clean Code", "Robert C. Martin"));
-            repository.save(new Book(2, "Effective Java", "Joshua Bloch"));
+            repository.save(new Book("Clean Code", "Robert C. Martin"));
+            repository.save(new Book("Effective Java", "Joshua Bloch")); 
 
         };
     }

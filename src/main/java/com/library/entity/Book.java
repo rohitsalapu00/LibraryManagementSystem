@@ -1,8 +1,6 @@
 package com.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -10,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Book {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "Title cannot be empty")
@@ -21,6 +20,10 @@ public class Book {
     public Book() {
     }
 
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
     public Book(int id, String title, String author) {
         this.id = id;
         this.title = title;

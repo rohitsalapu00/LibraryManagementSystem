@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-book-open"></i>
+                Library Management
+            </a>
+            <button class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"
+                id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                        href="index.html">
+
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                        href="books.html">
+                            <i class="fas fa-book"></i>
+                            Books
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                        href="add-book.html">
+                            <i class="fas fa-plus-circle"></i>
+                            Add Book
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                        <i class="fas fa-circle-info"></i>
+                            About
+                        </a>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->   
+        </a>
+
+    </li>
+                </ul>
+            </div> 
+        </div>
+
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-4 fw-bold">
+                    📚 Library Management System
+                </h1>
+                <p class="lead">
+                    Manage your library books easily using a modern web interface.
+                </p>
+                <a href="books.html"
+                    class="btn btn-primary btn-lg me-2">
+                    📚 View Books
+                </a>
+
+                <a href="add-book.html"
+                    class="btn btn-success btn-lg">
+                    ➕ Add Book
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DASHBOARD CARDS ================= -->
+
+    <div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                    <i class="fas fa-book fa-3x text-primary"></i>
+                    <h2 id="totalBooks">0</h2>
+                    <h5>Total Books</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                    <i class="fas fa-server fa-3x text-success"></i>
+                    <h4>Backend</h4>
+                    <h5 id="backendStatus" class="text-success">
+                        🟢 Online
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                    <i class="fas fa-database fa-3x text-warning"></i>
+                    <h4>MySQL</h4>
+                    <span class="badge bg-primary">
+                        Connected
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                    <i class="fab fa-docker fa-3x text-info"></i>
+                    <h4>Docker</h4>
+                    <span class="badge bg-info text-dark">
+                        Running
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="container my-5">
+        <h2 class="mb-4">
+            Quick Actions
+        </h2>
+        <a href="books.html"
+        class="btn btn-primary btn-lg me-3">
+            📚 View Books
+        </a>
+        <a href="add-book.html"
+        class="btn btn-success btn-lg me-3">
+            ➕ Add Book
+        </a>
+        <a href="about.html"
+        class="btn btn-dark btn-lg">
+            ℹ About Project
+        </a>
+    </section>
+
+    <section class="container my-5">
+        <h2 class="mb-4">
+            📊 Library Statistics
+        </h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book fa-3x text-primary"></i>
+                        <h2 id="totalBooksStats">0</h2>
+                        <p>Total Books</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user fa-3x text-success"></i>
+                        <h2 id="totalAuthors">0</h2>
+                        <p>Authors</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0">
+                    <div class="card-body text-center">
+                        <i class="fas fa-server fa-3x text-danger"></i>
+                        <h2>100%</h2>
+                        <p>Backend Status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <h2 class="mb-4">
+        📚 Recently Added Books
+        </h2>
+        <div class="card shadow">
+            <div class="card-body">
+                <ul id="recentBooks"
+                    class="list-group">
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2>
+                    About Project
+                </h2>
+                <hr>
+                <p>
+                    This Library Management System is built using:
+                </p>
+                <ul>
+                    <li>Spring Boot</li>
+                    <li>MySQL</li>
+                    <li>Java 17</li>
+                    <li>Maven</li>
+                    <li>Docker</li>
+                    <li>Jenkins CI</li>
+                    <li>Bootstrap 5</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <h2>
+        🏗 System Architecture
+        </h2>
+        <div class="card shadow">
+            <div class="card-body text-center">
+                Developer
+                <br>⬇<br>
+                GitHub
+                <br>⬇<br>
+                Jenkins
+                <br>⬇<br>
+                Docker
+                <br>⬇<br>
+                Spring Boot
+                <br>⬇<br>
+                MySQL
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <h2>
+            ✨ Features
+        </h2>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        ✅ Add Books
+                    </li>
+                    <li class="list-group-item">
+                        ✅ Update Books
+                    </li>
+                    <li class="list-group-item">
+                        ✅ Delete Books
+                    </li>
+                    <li class="list-group-item">
+                        ✅ Search Books
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        ✅ Dockerized
+                    </li>
+                    <li class="list-group-item">
+                        ✅ Jenkins CI
+                    </li>
+                    <li class="list-group-item">
+                        ✅ REST API
+                    </li>
+                    <li class="list-group-item">
+                        ✅ Responsive UI
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center mt-4">
+        <span class="badge bg-success fs-6">Spring Boot</span>
+        <span class="badge bg-primary fs-6">Java 17</span>
+        <span class="badge bg-warning text-dark fs-6">MySQL</span>
+        <span class="badge bg-info text-dark fs-6">Docker</span>
+        <span class="badge bg-danger fs-6">Jenkins</span>
+        <span class="badge bg-secondary fs-6">Bootstrap 5</span>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="bg-dark text-white text-center p-4 mt-5">
+        <h4>📚 Library Management System</h4>
+        <p>
+            Built using Spring Boot, MySQL, Docker, Jenkins and Bootstrap
+        </p>
+        <hr class="bg-light">
+        <h5>Developed By</h5>
+        <p>
+            Salapu Rohit<br>
+            Salla Vamsi Ram<br>
+            Malla Jyothi Prakash
+        </p>
+        <p>
+            B.Tech Computer Science & Engineering
+        </p>
+        <p>
+            Lovely Professional University
+        </p>
+    </footer>
+
+    <!-- Toast Notification -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div id="liveToast"
+         class="toast align-items-center text-bg-success border-0"
+         role="alert">
+
+        <div class="d-flex">
+
+            <div class="toast-body" id="toastMessage">
+
+                Success
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

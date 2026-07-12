@@ -1,0 +1,109 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+/* Navbar */
+
+.navbar{
+    background:linear-gradient(90deg,#0d6efd,#6610f2);
+}
+
+.navbar-brand{
+    font-size:26px;
+    font-weight:700;
+}
+
+.nav-link{
+    font-weight:500;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#ffd43b !important;
+}
+
+/* Hero Section */
+
+.hero{
+    padding:80px 20px;
+    text-align:center;
+    color:white;
+    background:linear-gradient(135deg,#0d6efd,#6610f2);
+}
+
+.hero h1{
+    font-size:55px;
+    font-weight:bold;
+}
+
+.hero p{
+    font-size:20px;
+    margin-top:20px;
+}
+
+.hero .btn{
+    margin-top:25px;
+    padding:12px 30px;
+    font-size:18px;
+}
+
+/* Cards */
+
+.card{
+    border:none;
+    border-radius:15px;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+}
+
+.card i{
+    margin-bottom:20px;
+}
+
+/* About Section */
+
+section h2{
+    font-weight:bold;
+}
+
+section ul li{
+    margin-bottom:10px;
+}
+
+/* Footer */
+
+footer{
+    background:#111827;
+}
+
+footer h5{
+    font-weight:bold;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:36px;
+}
+
+.hero p{
+    font-size:17px;
+}
+
+}
