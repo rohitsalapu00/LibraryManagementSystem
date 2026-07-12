@@ -313,7 +313,47 @@ http://localhost:9090
 ✅ Jenkins Pipeline passed
 
 ---
+# 📸 Project Screenshots
 
+## 🐳 Docker Desktop
+
+Docker Desktop showing the custom Jenkins container running successfully.
+
+<p align="center">
+  <img src="screenshots/docker-container-running.png" alt="Docker Desktop" width="900"/>
+</p>
+
+---
+
+## 💻 Docker Container Status
+
+Terminal output confirming that the Dockerized Jenkins container is running.
+
+<p align="center">
+  <img src="screenshots/docker-ps-output.png" alt="Docker PS Output" width="900"/>
+</p>
+
+---
+
+## 🤖 Jenkins Dashboard
+
+Jenkins dashboard displaying the configured pipeline and successful build history.
+
+<p align="center">
+  <img src="screenshots/jenkins-dashboard-success.png" alt="Jenkins Dashboard" width="900"/>
+</p>
+
+---
+
+## ✅ Successful Pipeline Execution
+
+Console output showing the successful execution of the Jenkins pipeline.
+
+<p align="center">
+  <img src="screenshots/pipeline-console-success.png" alt="Pipeline Console Output" width="900"/>
+</p>
+
+---
 # 📈 DevOps Workflow
 
 ```text
