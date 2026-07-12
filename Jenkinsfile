@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     tools {
         jdk 'JDK17'
         maven 'Maven'
@@ -51,7 +55,6 @@ pipeline {
                 sh 'docker compose up --build -d'
             }
         }
-
     }
 
     post {
