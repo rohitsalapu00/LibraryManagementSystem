@@ -369,7 +369,7 @@ http://localhost:9090
 ## 🏠 Home Page
 
 <p align="center">
-  <img src="screenshots/home.png" width="900" alt="Home Page"/>
+  <img src="screenshots/Home.png" width="900" alt="Home Page"/>
 </p>
 
 ---

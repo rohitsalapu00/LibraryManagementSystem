@@ -37,10 +37,7 @@ pipeline {
 
         stage('Deploy Application') {
             steps {
-                sh '''
-                docker compose down || true
-                docker compose up --build -d
-            '''
+                sh 'docker compose up --build -d'
             }
         }
     }
