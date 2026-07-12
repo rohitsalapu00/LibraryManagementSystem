@@ -1,22 +1,12 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout(true)
-    }
-
     tools {
         jdk 'JDK17'
         maven 'Maven'
     }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
 
         stage('Build') {
             steps {
@@ -61,7 +51,6 @@ pipeline {
         success {
             echo 'Application Built and Deployed Successfully!'
         }
-
         failure {
             echo 'Pipeline Failed!'
         }
