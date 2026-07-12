@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🚀 Dockerized Jenkins Server
+# 🚀 Dockerized CI/CD Pipeline for Library Management System
 
-### Automating the Build Process of a Spring Boot Application using Jenkins running inside Docker
+### Automating Build, Docker Image Creation, and Deployment of a Spring Boot Library Management System using Jenkins running inside Docker.
 
 <p align="center">
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
@@ -29,43 +29,55 @@ It implements a **Continuous Integration (CI)** workflow where Jenkins automatic
 # 🏗 Architecture
 
 ```text
-                 Developer
+                Developer
 
-                      │
+                    │
 
-                      ▼
+                    ▼
 
-              GitHub Repository
+             GitHub Repository
 
-                      │
+                    │
 
-                      ▼
+                    ▼
 
-      Dockerized Jenkins Container
+        Dockerized Jenkins Server
 
-                      │
+                    │
 
-                      ▼
+                    ▼
 
-            Jenkins Pipeline
+          Jenkins Pipeline
 
-                      │
+     ┌─────────┼──────────┐
 
-                      ▼
+     ▼         ▼          ▼
 
-             Maven Build
+ Build      Test      Package
 
-                      │
+                    │
 
-                      ▼
+                    ▼
 
-      Spring Boot Application
+      Backend Docker Image
 
-                      │
+                    │
 
-                      ▼
+                    ▼
 
-         Executable JAR File
+     Frontend Docker Image
+
+                    │
+
+                    ▼
+
+      Docker Compose Deploy
+
+                    │
+
+                    ▼
+
+     Running Library System
 ```
 
 ---
@@ -134,14 +146,11 @@ Build Success
 
 # ✨ Features
 
-- ✅ Jenkins running inside Docker
-- ✅ Automated GitHub repository cloning
-- ✅ Spring Boot build automation
-- ✅ Maven dependency management
-- ✅ Executable JAR generation
-- ✅ Docker-based service management
-- ✅ Continuous Integration using Jenkins Pipeline
-- ✅ Persistent Jenkins data using Docker Volumes
+- Executable Spring Boot JAR generation
+- Backend Docker image creation
+- Frontend Docker image creation
+- Docker Compose deployment
+- Fully automated CI/CD pipelinees
 
 ---
 
@@ -152,21 +161,31 @@ LibraryManagementSystem
 
 │
 
-├── src/
+├── frontend/
 
-│   ├── main/
+│   ├── css/
 
-│   ├── test/
+│   ├── js/
+
+│   ├── pages/
+
+│   ├── Dockerfile
 
 │
 
+├── screenshots/
+
+│
+
+├── src/
+
 ├── Dockerfile
+
+├── docker-compose.yml
 
 ├── Jenkinsfile
 
 ├── pom.xml
-
-├── docker-compose.yml
 
 └── README.md
 ```
@@ -178,33 +197,59 @@ LibraryManagementSystem
 ```mermaid
 flowchart TD
 
-A[Developer] --> B[GitHub Repository]
+A[Developer Push]
 
-B --> C[Jenkins Pipeline]
+-->
 
-C --> D[Checkout Source Code]
+B[GitHub Repository]
 
-D --> E[Maven Clean]
+-->
 
-E --> F[Maven Compile]
+C[Jenkins Pipeline]
 
-F --> G[Maven Package]
+-->
 
-G --> H[Generate Spring Boot JAR]
+D[Maven Build]
 
-H --> I[Build Successful]
+-->
+
+E[Unit Test]
+
+-->
+
+F[Package JAR]
+
+-->
+
+G[Build Backend Docker Image]
+
+-->
+
+H[Build Frontend Docker Image]
+
+-->
+
+I[Docker Compose Deploy]
+
+-->
+
+J[Application Running]
 ```
 
 ---
 
 # 🔄 Jenkins Pipeline Stages
 
-| Stage | Description |
-|--------|-------------|
-| Checkout | Clone project from GitHub |
-| Build | Compile project using Maven |
-| Package | Generate executable JAR |
-| Post Actions | Display build status |
+| Stage                       | Description               |
+| --------------------------- | ------------------------- |
+| Checkout                    | Clone Repository          |
+| Build                       | Maven Compile             |
+| Test                        | Execute Unit Tests        |
+| Package                     | Package Spring Boot JAR   |
+| Build Backend Docker Image  | Build Backend Image       |
+| Build Frontend Docker Image | Build Frontend Image      |
+| Deploy                      | Docker Compose Deployment |
+
 
 ---
 
@@ -302,15 +347,21 @@ http://localhost:9090
 
 # 📊 Build Results
 
-✅ Repository successfully cloned
+✅ GitHub Repository cloned
 
-✅ Maven Build completed
+✅ Maven Build Successful
 
-✅ Spring Boot compiled
+✅ Unit Tests Executed
 
-✅ Executable JAR generated
+✅ Spring Boot JAR Generated
 
-✅ Jenkins Pipeline passed
+✅ Backend Docker Image Created
+
+✅ Frontend Docker Image Created
+
+✅ Docker Compose Deployment Successful
+
+✅ Jenkins Pipeline Completed
 
 ---
 # 📸 Project Screenshots
@@ -381,13 +432,19 @@ Jenkins Trigger
 
      ▼
 
-Clone Repository
+Checkout Repository
 
      │
 
      ▼
 
-Compile Project
+Maven Build
+
+     │
+
+     ▼
+
+Execute Tests
 
      │
 
@@ -399,13 +456,25 @@ Package Application
 
      ▼
 
-Generate JAR
+Build Backend Image
 
      │
 
      ▼
 
-Build Successful
+Build Frontend Image
+
+     │
+
+     ▼
+
+Docker Compose Deploy
+
+     │
+
+     ▼
+
+Running Application
 ```
 
 ---
@@ -438,42 +507,37 @@ The first Maven build downloaded all project dependencies. Later builds became s
 
 Through this project I learned:
 
-- Docker Fundamentals
-- Jenkins Installation
-- Dockerized Jenkins
-- WSL2 Configuration
-- Maven Build Automation
-- Spring Boot Build Process
-- GitHub Integration
-- Jenkins Pipeline
-- Continuous Integration (CI)
-- Docker Volumes
-- Docker Networking
-- Service Management using Docker
+- Docker Compose
+- Docker Image Creation
+- Multi-container Applications
+- CI/CD Pipeline Design
+- Container Networking
 
 ---
 
 # 🎖 Project Outcomes
 
 - ✅ Dockerized Jenkins Server
-- ✅ Automated Build Execution
-- ✅ Maven Integration
 - ✅ Spring Boot Build Automation
+- ✅ Backend Docker Image
+- ✅ Frontend Docker Image
+- ✅ Docker Compose Deployment
+- ✅ Complete CI/CD Pipeline
 - ✅ GitHub Integration
-- ✅ CI Pipeline Successfully Implemented
+- ✅ Maven Integration
 
 ---
 
 # 🔮 Future Enhancements
 
-- Docker Image Build Stage
-- Docker Hub Integration
-- SonarQube Code Analysis
-- Automated Unit Testing
+- SonarQube Integration
+- Docker Hub Push
+- GitHub Webhooks
+- Automated Testing
 - Kubernetes Deployment
 - AWS EC2 Deployment
-- GitHub Webhooks
-- Continuous Deployment (CD)
+- Continuous Delivery (CD)
+- Monitoring using Prometheus & Grafana
 
 ---
 
@@ -516,30 +580,32 @@ https://github.com/rohitsalapu00/LibraryManagementSystem
 
 # 📊 Project Statistics
 
-| Category | Details |
-|----------|----------|
-| Project Type | DevOps CI Pipeline |
-| Backend Framework | Spring Boot |
-| Programming Language | Java 17 |
-| Build Tool | Maven |
-| CI Tool | Jenkins |
-| Container Platform | Docker |
-| Version Control | Git & GitHub |
-| Operating Environment | Ubuntu (WSL2) |
-| Pipeline Type | Declarative Jenkins Pipeline |
+| Category           | Details                      |
+| ------------------ | ---------------------------- |
+| Project Type       | Full Stack DevOps Project    |
+| Backend            | Spring Boot                  |
+| Frontend           | HTML, CSS, JavaScript        |
+| Database           | MySQL                        |
+| CI Tool            | Jenkins                      |
+| Container Platform | Docker                       |
+| Deployment         | Docker Compose               |
+| Build Tool         | Maven                        |
+| Version Control    | Git & GitHub                 |
+| Pipeline           | Declarative Jenkins Pipeline |
+
 
 ---
 
 # 📌 Key Achievements
 
-- ✅ Successfully Dockerized Jenkins Server
-- ✅ Configured Jenkins Pipeline
-- ✅ Integrated GitHub Repository
-- ✅ Automated Maven Build Process
-- ✅ Generated Executable Spring Boot JAR
-- ✅ Configured Java & Maven in Jenkins
-- ✅ Implemented Continuous Integration Workflow
-- ✅ Managed Jenkins Services using Docker
+- ✅ Dockerized Jenkins Server
+- ✅ Maven Build Automation
+- ✅ Spring Boot Packaging
+- ✅ Backend Docker Image Creation
+- ✅ Frontend Docker Image Creation
+- ✅ Docker Compose Deployment
+- ✅ Complete Jenkins CI/CD Pipeline
+- ✅ GitHub Integrationr
 
 ---
 
