@@ -55,32 +55,37 @@ function displayBooks(books) {
     const end = start + booksPerPage;
     const paginatedBooks = books.slice(start, end);
     let rows = "";
-    paginatedBooks.forEach(book => {
-        rows += `
-        <tr>
-            <td>${book.id}</td>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>
-                <button
-                    class="btn btn-info btn-sm"
-                    onclick="viewBook(${book.id})">
-                    View
-                </button>
-                <button
-                    class="btn btn-warning btn-sm"
-                    onclick="editBook(${book.id})">
-                    Edit
-                </button>
-                <button
-                    class="btn btn-danger btn-sm"
-                    onclick="deleteBook(${book.id})">
-                    Delete
-                </button>
-            </td>
-        </tr>
-        `;
-    });
+    paginatedBooks.forEach((book, index) => {
+
+    const serialNo = start + index + 1;
+
+    rows += `
+    <tr>
+        <td>${serialNo}</td>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>
+            <button
+                class="btn btn-info btn-sm"
+                onclick="viewBook(${book.id})">
+                View
+            </button>
+
+            <button
+                class="btn btn-warning btn-sm"
+                onclick="editBook(${book.id})">
+                Edit
+            </button>
+
+            <button
+                class="btn btn-danger btn-sm"
+                onclick="deleteBook(${book.id})">
+                Delete
+            </button>
+        </td>
+    </tr>
+    `;
+});
     document.getElementById("bookTable").innerHTML = rows;
     document.getElementById("pageNumber").innerText =
         `Page ${currentPage}`;
