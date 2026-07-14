@@ -237,6 +237,18 @@ The project builds the following Docker images:
 | mysql:8.4 | MySQL Database |
 # 🐳 Docker Commands
 
+### Start Docker Images
+
+```bash
+docker compose up --build -d
+```
+
+### Stop Docker Images
+
+```bash
+docker compose down
+```
+
 # 📦 Running Containers
 
 After successful deployment, the following containers are running:
@@ -276,19 +288,6 @@ docker ps
 ```bash
 docker stop jenkins-server
 ```
-
-### Start Docker Images
-
-```bash
-docker compose up --build -d
-```
-
-### Stop Docker Images
-
-```bash
-docker compose down
-```
-
 
 ### Start Jenkins
 
