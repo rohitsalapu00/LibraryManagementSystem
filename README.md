@@ -22,7 +22,7 @@
 
 This project demonstrates how to **run Jenkins inside a Docker container** and automate the build process of a **Spring Boot Library Management System**.
 
-It implements a **Continuous Integration (CI)** workflow where Jenkins automatically clones the project from GitHub, builds it using Maven, generates an executable Spring Boot JAR, and displays the build status.
+Jenkins automatically clones the project from GitHub, builds the Spring Boot application using Maven, runs tests, packages the application, builds Docker images for both the backend and frontend, and deploys the complete application using Docker Compose.
 
 ---
 
@@ -30,54 +30,36 @@ It implements a **Continuous Integration (CI)** workflow where Jenkins automatic
 
 ```text
                 Developer
-
-                    │
-
-                    ▼
-
-             GitHub Repository
-
-                    │
-
-                    ▼
-
-        Dockerized Jenkins Server
-
-                    │
-
-                    ▼
-
-          Jenkins Pipeline
-
-     ┌─────────┼──────────┐
-
-     ▼         ▼          ▼
-
- Build      Test      Package
-
-                    │
-
-                    ▼
-
-      Backend Docker Image
-
-                    │
-
-                    ▼
-
-     Frontend Docker Image
-
-                    │
-
-                    ▼
-
-      Docker Compose Deploy
-
-                    │
-
-                    ▼
-
-     Running Library System
+      │
+      ▼
+GitHub Repository
+      │
+      ▼
+Dockerized Jenkins
+      │
+      ▼
+Checkout Source Code
+      │
+      ▼
+Maven Build
+      │
+      ▼
+Run Tests
+      │
+      ▼
+Package JAR
+      │
+      ▼
+Build Backend Docker Image
+      │
+      ▼
+Build Frontend Docker Image
+      │
+      ▼
+Docker Compose Deployment
+      │
+      ▼
+MySQL + Backend + Frontend
 ```
 
 ---
@@ -146,11 +128,15 @@ Build Success
 
 # ✨ Features
 
-- Executable Spring Boot JAR generation
-- Backend Docker image creation
-- Frontend Docker image creation
-- Docker Compose deployment
-- Fully automated CI/CD pipelinees
+- ✅ Automated Spring Boot build using Maven
+- ✅ Executable Spring Boot JAR generation
+- ✅ Backend Docker image creation
+- ✅ Frontend Docker image creation
+- ✅ Docker Compose deployment
+- ✅ Fully automated CI/CD pipeline using Jenkins
+- ✅ GitHub integration
+- ✅ Dockerized Jenkins server
+- ✅ Multi-container application deployment
 
 ---
 
@@ -197,64 +183,69 @@ LibraryManagementSystem
 ```mermaid
 flowchart TD
 
-A[Developer Push]
+A[Developer Push] --> B[GitHub]
 
--->
+B --> C[Jenkins Pipeline]
 
-B[GitHub Repository]
+C --> D[Checkout Source Code]
 
--->
+D --> E[Maven Build]
 
-C[Jenkins Pipeline]
+E --> F[Run Tests]
 
--->
+F --> G[Package Spring Boot JAR]
 
-D[Maven Build]
+G --> H[Build Backend Docker Image]
 
--->
+H --> I[Build Frontend Docker Image]
 
-E[Unit Test]
+I --> J[Docker Compose Deployment]
 
--->
+J --> K[MySQL]
 
-F[Package JAR]
+J --> L[Backend]
 
--->
-
-G[Build Backend Docker Image]
-
--->
-
-H[Build Frontend Docker Image]
-
--->
-
-I[Docker Compose Deploy]
-
--->
-
-J[Application Running]
-```
+J --> M[Frontend]```
 
 ---
 
 # 🔄 Jenkins Pipeline Stages
 
-| Stage                       | Description               |
-| --------------------------- | ------------------------- |
-| Checkout                    | Clone Repository          |
-| Build                       | Maven Compile             |
-| Test                        | Execute Unit Tests        |
-| Package                     | Package Spring Boot JAR   |
-| Build Backend Docker Image  | Build Backend Image       |
-| Build Frontend Docker Image | Build Frontend Image      |
-| Deploy                      | Docker Compose Deployment |
+| Stage                       | Description                              |
+| --------------------------- | ---------------------------------------- |
+| Checkout SCM                | Clone the project from GitHub            |
+| Build                       | Compile the Spring Boot application      |
+| Test                        | Execute Maven tests                      |
+| Package                     | Generate executable Spring Boot JAR      |
+| Build Backend Docker Image  | Create Docker image for Spring Boot      |
+| Build Frontend Docker Image | Create Docker image for Nginx frontend   |
+| Deploy Application          | Deploy all services using Docker Compose |
+
 
 
 ---
+# 🐳 Docker Images
 
+The project builds the following Docker images:
+
+| Image | Purpose |
+|--------|----------|
+| my-jenkins | Jenkins CI Server with Java, Maven, Git, Docker and Docker Compose |
+| librarymanagementsystem-library-app | Spring Boot Backend |
+| librarymanagementsystem-frontend | Frontend served using Nginx |
+| mysql:8.4 | MySQL Database |
 # 🐳 Docker Commands
 
+# 📦 Running Containers
+
+After successful deployment, the following containers are running:
+
+| Container | Purpose |
+|-----------|----------|
+| jenkins-server | Jenkins CI Server |
+| librarymanagementpipeline-mysql-1 | MySQL Database |
+| librarymanagementpipeline-library-app-1 | Spring Boot Backend |
+| librarymanagementpipeline-frontend-1 | Frontend Application |
 ### Build Jenkins Image
 
 ```bash
@@ -284,6 +275,19 @@ docker ps
 ```bash
 docker stop jenkins-server
 ```
+
+### Start Docker Images
+
+```bash
+docker compose up --build -d
+```
+
+### Stop Docker Images
+
+```bash
+docker compose down
+```
+
 
 ### Start Jenkins
 
@@ -428,6 +432,19 @@ Console output showing the successful execution of the Jenkins pipeline.
 </p>
 
 ---
+# 🔄 Jenkins Pipeline
+
+The project uses a Declarative Jenkins Pipeline.
+
+Pipeline Stages:
+
+1. Checkout Source Code
+2. Maven Build
+3. Unit Testing
+4. Package Spring Boot Application
+5. Build Backend Docker Image
+6. Build Frontend Docker Image
+7. Deploy using Docker Compose
 # 📈 DevOps Workflow
 
 ```text
@@ -531,10 +548,13 @@ The first Maven build downloaded all project dependencies. Later builds became s
 Through this project I learned:
 
 - Docker Compose
+- Multi-container Deployment
+- Docker Networking
+- Docker Volumes
 - Docker Image Creation
-- Multi-container Applications
-- CI/CD Pipeline Design
-- Container Networking
+- Jenkins Declarative Pipelines
+- CI/CD Workflow Automation
+
 
 ---
 
