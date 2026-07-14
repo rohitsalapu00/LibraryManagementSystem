@@ -37,7 +37,10 @@ pipeline {
 
         stage('Deploy Application') {
             steps {
-                sh 'docker compose up --build -d'
+                sh '''
+                    docker compose down --remove-orphans || true
+                    docker compose up --build -d
+                '''
             }
         }
     }
