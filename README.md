@@ -29,7 +29,7 @@ Jenkins automatically clones the project from GitHub, builds the Spring Boot app
 # 🏗 Architecture
 
 ```text
-                Developer
+  Developer
       │
       ▼
 GitHub Repository
@@ -41,13 +41,13 @@ Dockerized Jenkins
 Checkout Source Code
       │
       ▼
-Maven Build
+  Maven Build
       │
       ▼
-Run Tests
+  Run Tests
       │
       ▼
-Package JAR
+  Package JAR
       │
       ▼
 Build Backend Docker Image
@@ -76,13 +76,13 @@ Traditional Java development requires:
 This project automates the complete build process using Jenkins.
 
 ```text
-Developer
+  Developer
 
       │
 
       ▼
 
-GitHub Push
+  GitHub Push
 
       │
 
@@ -94,7 +94,7 @@ Jenkins Pipeline
 
       ▼
 
-Maven Build
+  Maven Build
 
       │
 
