@@ -21,7 +21,6 @@ services:
 
   library-app:
     build: .
-    
 
     depends_on:
       mysql:
@@ -37,7 +36,6 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: library-frontend
 
     ports:
       - "80:80"
