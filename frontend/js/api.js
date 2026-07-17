@@ -51,46 +51,74 @@ async function loadBooks() {
 }
 
 function displayBooks(books) {
+    alert("New displayBooks is running");
     const start = (currentPage - 1) * booksPerPage;
     const end = start + booksPerPage;
     const paginatedBooks = books.slice(start, end);
+
     let rows = "";
+
     paginatedBooks.forEach((book, index) => {
 
-    const serialNo = start + index + 1;
+        const serialNo = start + index + 1;
 
-    rows += `
-    <tr>
-        <td>${serialNo}</td>
-        <td>${book.title}</td>
-        <td>${book.author}</td>
-        <td>
-            <button
-                class="btn btn-info btn-sm"
-                onclick="viewBook(${book.id})">
-                View
-            </button>
+        rows += `
+        <tr>
+            <td>${serialNo}</td>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
 
-            <button
-                class="btn btn-warning btn-sm"
-                onclick="editBook(${book.id})">
-                Edit
-            </button>
+            <td>
+                ${book.status === "Issued"
+                    ? '<span class="badge bg-danger">Issued</span>'
+                    : '<span class="badge bg-success">Available</span>'}
+            </td>
 
-            <button
-                class="btn btn-danger btn-sm"
-                onclick="deleteBook(${book.id})">
-                Delete
-            </button>
-        </td>
-    </tr>
-    `;
-});
+            <td>
+
+                <button
+                    class="btn btn-info btn-sm"
+                    onclick="viewBook(${book.id})">
+                    View
+                </button>
+
+                <button
+                    class="btn btn-warning btn-sm"
+                    onclick="editBook(${book.id})">
+                    Edit
+                </button>
+
+                <button
+                    class="btn btn-danger btn-sm"
+                    onclick="deleteBook(${book.id})">
+                    Delete
+                </button>
+
+                ${
+                    book.status === "Available"
+                    ? `<button
+                            class="btn btn-secondary btn-sm"
+                            onclick="issueBook(${book.id})">
+                            Issue
+                       </button>`
+                    : `<button
+                            class="btn btn-success btn-sm"
+                            onclick="returnBook(${book.id})">
+                            Return
+                       </button>`
+                }
+
+            </td>
+
+        </tr>
+        `;
+    });
+
     document.getElementById("bookTable").innerHTML = rows;
+
     document.getElementById("pageNumber").innerText =
         `Page ${currentPage}`;
 }
-
 async function saveBook() {
     const title = document.getElementById("title").value.trim();
     const author = document.getElementById("author").value.trim();
@@ -267,6 +295,36 @@ async function checkBackendStatus() {
 
         status.innerHTML = "🔴 Offline";
         status.className = "text-danger";
+
+    }
+
+}
+
+async function issueBook(id) {
+
+    try {
+
+        const response = await fetch(API_URL + "/issue/" + id, {
+            method: "PUT"
+        });
+
+        if (response.ok) {
+
+            showToast("Book Issued Successfully!");
+
+            loadBooks();
+
+        } else {
+
+            alert("Failed to issue book.");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to connect to Spring Boot Backend.");
 
     }
 

@@ -26,10 +26,14 @@ public class BookService {
                         new BookNotFoundException("Book with ID " + id + " not found"));
     }
 
-
     public Book addBook(Book book) {
-        return repository.save(book);
+
+    if (book.getStatus() == null || book.getStatus().trim().isEmpty()) {
+        book.setStatus("Available");
     }
+
+    return repository.save(book);
+}
 
     public Book updateBook(int id, Book updatedBook) {
 
@@ -38,6 +42,7 @@ public class BookService {
         if (existingBook != null) {
             existingBook.setTitle(updatedBook.getTitle());
             existingBook.setAuthor(updatedBook.getAuthor());
+            existingBook.setStatus(updatedBook.getStatus());
 
             return repository.save(existingBook);
         }
@@ -54,28 +59,26 @@ public class BookService {
 
         return false;
     }
+
+    public Book issueBook(int id) {
+        Book book = repository.findById(id).orElse(null);
+
+        if (book != null) {
+            book.setStatus("Issued");
+            return repository.save(book);
+        }
+
+        return null;
+    }
+
+    public Book returnBook(int id) {
+        Book book = repository.findById(id).orElse(null);
+
+        if (book != null) {
+            book.setStatus("Available");
+            return repository.save(book);
+        }
+
+        return null;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

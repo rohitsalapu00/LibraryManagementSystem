@@ -17,17 +17,22 @@ public class Book {
     @NotBlank(message = "Author cannot be empty")
     private String author;
 
+    private String status = "Available";
+
     public Book() {
     }
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+        this.status = "Available";
     }
-    public Book(int id, String title, String author) {
+
+    public Book(int id, String title, String author, String status) {
         this.id = id;
         this.title = title;
         this.author = author;
+        this.status = status;
     }
 
     public int getId() {
@@ -52,5 +57,13 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

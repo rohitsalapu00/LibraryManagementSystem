@@ -50,4 +50,14 @@ public class BookController {
 
         return "Book not found.";
     }
+
+    @PutMapping("/issue/{id}")
+    public Book issueBook(@PathVariable int id) {
+        return service.issueBook(id);
+    }
+
+    @PutMapping("/return/{id}")
+    public Book returnBook(@PathVariable int id) {
+        return service.returnBook(id);
+    }
 }
