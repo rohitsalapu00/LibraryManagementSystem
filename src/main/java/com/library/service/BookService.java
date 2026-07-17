@@ -26,6 +26,7 @@ public class BookService {
                         new BookNotFoundException("Book with ID " + id + " not found"));
     }
 
+
     public Book addBook(Book book) {
         return repository.save(book);
     }
