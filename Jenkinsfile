@@ -2,19 +2,11 @@ pipeline {
 
     agent any
 
-    stages {
+    environment {
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
 
-        stage('Check Environment') {
-            steps {
-                sh '''
-                    echo "PATH=$PATH"
-                    which java || true
-                    which mvn || true
-                    which docker || true
-                    docker --version || true
-                '''
-            }
-        }
+    stages {
 
         stage('Build') {
             steps {
@@ -59,6 +51,7 @@ pipeline {
     }
 
     post {
+
         success {
             echo 'Application Built and Deployed Successfully!'
         }
