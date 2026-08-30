@@ -1,7 +1,20 @@
 pipeline {
+
     agent any
 
     stages {
+
+        stage('Check Environment') {
+            steps {
+                sh '''
+                    echo "PATH=$PATH"
+                    which java || true
+                    which mvn || true
+                    which docker || true
+                    docker --version || true
+                '''
+            }
+        }
 
         stage('Build') {
             steps {
@@ -49,6 +62,7 @@ pipeline {
         success {
             echo 'Application Built and Deployed Successfully!'
         }
+
         failure {
             echo 'Pipeline Failed!'
         }
