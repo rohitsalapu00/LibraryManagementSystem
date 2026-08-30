@@ -13,9 +13,23 @@ public class DataLoader {
     CommandLineRunner loadData(BookRepository repository) {
         return args -> {
 
-            repository.save(new Book("Clean Code", "Robert C. Martin"));
-            repository.save(new Book("Effective Java", "Joshua Bloch")); 
+            if (!repository.existsByTitleAndAuthor(
+                    "Clean Code",
+                    "Robert C. Martin")) {
 
+                repository.save(
+                    new Book("Clean Code", "Robert C. Martin")
+                );
+            }
+
+            if (!repository.existsByTitleAndAuthor(
+                    "Effective Java",
+                    "Joshua Bloch")) {
+
+                repository.save(
+                    new Book("Effective Java", "Joshua Bloch")
+                );
+            }
         };
     }
 }
