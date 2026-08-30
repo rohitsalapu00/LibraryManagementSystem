@@ -1,212 +1,116 @@
-<div align="center">
+# 🚀 Library Management System
 
-# 🚀 Dockerized CI/CD Pipeline for Library Management System
+A full-stack **Library Management System** built with **Spring Boot, MySQL, HTML, CSS, JavaScript, Bootstrap, Docker, and Jenkins**.
 
-### Automating Build, Testing, Docker Image Creation, Deployment, and Health Checks of a Spring Boot Library Management System using Jenkins.
-
-<p align="center">
-
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge"/>
-
-<img src="https://img.shields.io/badge/SpringBoot-3.5.4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/MySQL-8.4-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge"/>
-
-</p>
-
-</div>
+The project demonstrates a complete **CI/CD workflow** where Jenkins automatically builds, tests, packages, containerizes, and deploys the application using Docker Compose.
 
 ---
 
-# 📌 Project Overview
+## 📌 Project Overview
 
-This project demonstrates a complete DevOps-based CI/CD workflow for a full-stack Library Management System.
+The Library Management System allows users to:
 
-The backend is developed using Spring Boot, the frontend uses HTML, CSS, JavaScript and Bootstrap, and MySQL is used as the database.
+- 📚 View books
+- ➕ Add books
+- ✏️ Update books
+- 🗑️ Delete books
+- 🔍 Search books
+- 📖 Issue books
+- 🔄 Return books
+- 🚫 Prevent duplicate books
 
-Jenkins is used to automate the complete CI/CD pipeline:
-
-- Checkout source code from GitHub
-- Compile the Spring Boot application using Maven
-- Run automated unit tests
-- Package the Spring Boot application
-- Build the backend Docker image
-- Build the frontend Docker image
-- Deploy the application using Docker Compose
-- Perform backend and frontend health checks
-
-The application runs as a multi-container system consisting of:
-
-**MySQL + Spring Boot Backend + Nginx Frontend**
-
-# 🏗 Architecture
+The application consists of three main services:
 
 ````text
-                    Developer
-                        │
-                        ▼
-                 GitHub Repository
-                        │
-                        ▼
-                 Jenkins Pipeline
-                        │
-                        ▼
-                Checkout Source Code
-                        │
-                        ▼
-                   Maven Build
-                        │
-                        ▼
-                  Unit Testing
-                        │
-                        ▼
-              Package Spring Boot JAR
-                        │
-                        ▼
-             Build Backend Docker Image
-                        │
-                        ▼
-             Build Frontend Docker Image
-                        │
-                        ▼
-              Docker Compose Deployment
-                        │
-             ┌──────────┼──────────┐
-             ▼          ▼          ▼
-           MySQL     Backend    Frontend
-                        │
-                        ▼
-                  Health Checks
-                        │
-                        ▼
-                Pipeline SUCCESS
-
----
-
-# 🎯 Project Objective
-
-Traditional application development may involve:
-
-- Manual compilation
-- Manual testing
-- Manual packaging
-- Manual Docker image creation
-- Manual deployment
-- Manual environment configuration
-
-This project automates these activities using Jenkins, Maven, Docker and Docker Compose.
-
-The overall workflow is:
-
-```text
+Frontend
+   │
+   ▼
+Spring Boot Backend
+   │
+   ▼
+MySQL Database
+🏗️ Project Architecture
 Developer
     │
     ▼
-Git Commit
+  GitHub
     │
     ▼
-GitHub Push
+  Jenkins
     │
-    ▼
-Jenkins Pipeline
-    │
-    ▼
-Maven Build
-    │
-    ▼
-Unit Tests
-    │
-    ▼
-Package JAR
-    │
-    ▼
-Docker Images
-    │
-    ▼
-Docker Compose
-    │
-    ▼
-Application Deployment
-    │
-    ▼
-Health Checks
+    ├── Build
+    ├── Test
+    ├── Package
+    ├── Build Docker Images
+    └── Deploy
+            │
+            ▼
+      Docker Compose
+        │     │     │
+        ▼     ▼     ▼
+     MySQL Backend Frontend
+⚙️ Technologies Used
+Technology	Purpose
+Java 17	Programming Language
+Spring Boot	Backend Framework
+Spring Data JPA	Database Access
+MySQL 8.4	Database
+Maven	Build Tool
+HTML	Frontend Structure
+CSS	Frontend Styling
+JavaScript	Frontend Logic
+Bootstrap 5	Responsive UI
+Docker	Containerization
+Docker Compose	Multi-container Deployment
+Jenkins	CI/CD Automation
+Git	Version Control
+GitHub	Source Code Repository
+Nginx	Frontend Web Server
+✨ Features
+📚 Library Features
+Add a new book
+View all books
+Update book details
+Delete books
+Search books
+Issue books
+Return books
+Track borrower information
+Track issue, due, and return dates
+Prevent duplicate books
+🛡️ Validation
 
-# ⚙️ Technologies Used
+The backend validates:
 
-| Technology | Purpose |
-| ---------------- | ------------------------------ |
-| 🐳 Docker | Containerization |
-| 🤖 Jenkins | CI/CD automation |
-| ☕ Java 17 | Programming Language |
-| 🍃 Spring Boot 3.5.4 | Backend Framework |
-| 📦 Maven | Build Automation |
-| 🐬 MySQL 8.4 | Database |
-| 🌐 Nginx | Frontend Web Server |
-| 🧪 JUnit | Unit Testing |
-| 🎭 Mockito | Mocking for Unit Tests |
-| 🐙 Git | Version Control |
-| 🌐 GitHub | Source Code Repository |
-| 🎨 Bootstrap 5 | Frontend UI |
+Empty book title
+Empty author name
+Duplicate title and author
+Issuing an already issued book
+Invalid book IDs
+🧪 Testing
 
-# ✨ Features
+The project contains unit tests for BookService.
 
-## 📚 Library Management
+Current test result:
 
-- ✅ Add Books
-- ✅ View Books
-- ✅ Update Books
-- ✅ Delete Books
-- ✅ Search/View Books
-- ✅ Issue Books
-- ✅ Return Books
-- ✅ Book issue date tracking
-- ✅ Book due date tracking
-- ✅ Book return date tracking
+Tests run: 11
+Failures: 0
+Errors: 0
+Skipped: 0
 
-## 🛡 Validation and Error Handling
+BUILD SUCCESS
+🚫 Duplicate Book Prevention
 
-- ✅ Title validation
-- ✅ Author validation
-- ✅ Duplicate book prevention
-- ✅ Book not found handling
-- ✅ Global exception handling
-- ✅ Invalid request handling
+Duplicate books are prevented using the repository method:
 
-## 🧪 Automated Testing
+existsByTitleAndAuthor(String title, String author)
 
-- ✅ JUnit testing
-- ✅ Mockito testing
-- ✅ BookService unit tests
-- ✅ 11 automated tests
-- ✅ All 11 tests passing
+Before adding a book, the service checks whether a book with the same title and author already exists.
 
-## 🚀 DevOps
+If it exists, the application returns an error instead of creating another copy.
 
-- ✅ Maven build automation
-- ✅ Jenkins Declarative Pipeline
-- ✅ Dockerized Jenkins
-- ✅ Backend Docker image
-- ✅ Frontend Docker image
-- ✅ Docker Compose deployment
-- ✅ Automated deployment
-- ✅ Backend health check
-- ✅ Frontend health check
-- ✅ GitHub integration
-
-# 📂 Project Structure
-
-```text
-LibraryManagementSystem
+📂 Project Structure
+LibraryManagementSystem/
 │
 ├── frontend/
 │   ├── css/
@@ -214,635 +118,402 @@ LibraryManagementSystem
 │   ├── pages/
 │   └── Dockerfile
 │
-├── screenshots/
-│
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── library/
-│   │   │           ├── config/
-│   │   │           ├── controller/
-│   │   │           ├── entity/
-│   │   │           ├── exception/
-│   │   │           ├── repository/
-│   │   │           └── service/
+│   │   │   └── com/library/
+│   │   │       ├── config/
+│   │   │       ├── controller/
+│   │   │       ├── entity/
+│   │   │       ├── exception/
+│   │   │       ├── repository/
+│   │   │       └── service/
 │   │   │
 │   │   └── resources/
 │   │
 │   └── test/
 │       └── java/
-│           └── com/
-│               └── library/
-│                   └── service/
-│                       └── BookServiceTest.java
+│           └── com/library/
+│               └── service/
+│                   └── BookServiceTest.java
 │
 ├── Dockerfile
 ├── docker-compose.yml
 ├── Jenkinsfile
 ├── pom.xml
 └── README.md
-
-
----
-
-# 🔄 CI/CD Pipeline Workflow
-
-```mermaid
-flowchart TD
-
-A[Developer Push] --> B[GitHub]
-
-B --> C[Jenkins Pipeline]
-
-C --> D[Checkout Source Code]
-
-D --> E[Maven Build]
-
-E --> F[Run Unit Tests]
-
-F --> G[Package Spring Boot JAR]
-
-G --> H[Build Backend Docker Image]
-
-H --> I[Build Frontend Docker Image]
-
-I --> J[Docker Compose Deployment]
-
-J --> K[MySQL]
-
-J --> L[Spring Boot Backend]
-
-J --> M[Nginx Frontend]
-
-K --> N[Health Checks]
-
-L --> N
-
-M --> N
-
-N --> O[Pipeline Success]
-
-
----
-
-# 🔄 Jenkins Pipeline Stages
-
-The Jenkins pipeline contains the following stages:
-
-| Stage | Description |
-| --------------------------- | --------------------------------------------- |
-| Checkout SCM | Clone the project from GitHub |
-| Build | Compile the Spring Boot application |
-| Test | Execute automated unit tests |
-| Package | Generate executable Spring Boot JAR |
-| Build Backend Docker Image | Create Docker image for Spring Boot |
-| Build Frontend Docker Image | Create Docker image for Nginx frontend |
-| Deploy Application | Deploy services using Docker Compose |
-| Health Check | Verify backend and frontend availability |
-
-# 🧪 Automated Testing
-
-The project contains unit tests for the `BookService`.
-
-Testing is performed using:
-
-- JUnit
-- Mockito
-- Maven Surefire
-
-The latest successful test execution produced:
-
-```text
-Tests run: 11
-Failures: 0
-Errors: 0
-Skipped: 0
-
-Result: BUILD SUCCESS
-
-
----
-
-# 🛡 Duplicate Book Prevention
-
-Duplicate books were identified during database testing.
-
-The project was updated to prevent duplicate books with the same:
-
-```text
-Title + Author
-
-
----
-
-# ❤️ Deployment Health Checks
-
-After deploying the application, Jenkins verifies that the application is actually accessible.
-
-## Backend Health Check
-
-Jenkins checks:
-
-```bash
-curl -f http://localhost:8081/books
-
-
----
-
-# 🐳 Docker Architecture
-
-The application consists of three primary services.
-
-```text
-                 Docker Compose
-                       │
-        ┌──────────────┼──────────────┐
-        │              │              │
-        ▼              ▼              ▼
-      MySQL         Backend        Frontend
-     Port 3306      Port 8081       Port 80
-        │              │              │
-        │         Spring Boot        │
-        │              │             Nginx
-        └──────────────┼──────────────┘
-                       │
-                    Network
-
-# 🐳 Docker Images
-
-| Image | Purpose |
-| ----------------------------------- | -------------------------------- |
-| `my-jenkins` | Custom Jenkins CI server |
-| `librarymanagementsystem-library-app` | Spring Boot backend |
-| `librarymanagementsystem-frontend` | Nginx frontend |
-| `mysql:8.4` | MySQL database |
-
-# 🐳 Docker Compose Commands
-
-## Start Application
-
-```bash
-docker compose up --build -d
-docker compose down
-docker compose restart
-docker ps
-
-# 📦 Running Containers
-
-After successful deployment, the application contains:
-
-| Container | Purpose |
-| --------------------------------------- | -------------------- |
-| `librarymanagementpipeline-mysql-1` | MySQL Database |
-| `librarymanagementpipeline-library-app-1` | Spring Boot Backend |
-| `librarymanagementpipeline-frontend-1` | Frontend Application |
-
-The containers expose:
-
-| Service | Port |
-| -------- | ---- |
-| MySQL | 3306 |
-| Spring Boot Backend | 8081 |
-| Nginx Frontend | 80 |
-
-# 🤖 Dockerized Jenkins
-
-Jenkins is configured to automate the CI/CD process.
-
-The custom Jenkins environment includes:
-
-- Java
-- Maven
-- Git
-- Docker
-- Docker Compose
-
-## Build Jenkins Image
-
-```bash
-docker build -t my-jenkins .
-
-docker run -d \
---name jenkins-server \
--p 9090:8080 \
--p 50000:50000 \
--v /var/jenkins_home:/var/jenkins_home \
--v /var/run/docker.sock:/var/run/docker.sock \
-my-jenkins
-
-docker ps
-docker stop jenkins-server
-docker start jenkins-server
-docker restart jenkins-server
-
-
----
-
-# 💻 Running the Project
-
-## Clone Repository
-
-```bash
-git clone https://github.com/rohitsalapu00/LibraryManagementSystem.git
-cd LibraryManagementSystem
-mvn clean package
-mvn spring-boot:run
-
-
----
-
-# 🌐 Application URLs
-
-## Frontend
-
-```text
-http://localhost
+🤖 Jenkins CI/CD Pipeline
+
+The project uses a Declarative Jenkins Pipeline.
+
+The pipeline automatically performs the following stages:
+
+Checkout
+   ↓
+Build
+   ↓
+Test
+   ↓
+Package
+   ↓
+Build Backend Docker Image
+   ↓
+Build Frontend Docker Image
+   ↓
+Deploy Application
+   ↓
+Health Check
+🔄 Jenkins Pipeline Stages
+Stage	Description
+Checkout SCM	Gets the latest source code from GitHub
+Build	Compiles the Spring Boot application
+Test	Runs unit tests using Maven
+Package	Creates the executable Spring Boot JAR
+Build Backend Docker Image	Creates the backend Docker image
+Build Frontend Docker Image	Creates the frontend Docker image
+Deploy Application	Starts the application using Docker Compose
+Health Check	Verifies backend and frontend availability
+❤️ Deployment Health Check
+
+After deployment, Jenkins checks whether the application is working correctly.
+
+Backend Check
 http://localhost:8081/books
+
+Jenkins waits for the Spring Boot backend to become available.
+
+Frontend Check
+http://localhost/
+
+Jenkins verifies that Nginx successfully serves the frontend.
+
+Example successful result:
+
+Backend is healthy!
+Frontend is healthy!
+CI/CD Pipeline Completed Successfully!
+
+Finished: SUCCESS
+🐳 Docker
+
+The application uses multiple Docker containers.
+
+┌─────────────────────┐
+│      Frontend       │
+│       Nginx         │
+│      Port 80        │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      Backend        │
+│    Spring Boot      │
+│     Port 8081       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│       MySQL         │
+│     Port 3306       │
+└─────────────────────┘
+🐳 Docker Containers
+
+After deployment, the following application containers are running:
+
+Container	Purpose
+librarymanagementpipeline-frontend-1	Frontend
+librarymanagementpipeline-library-app-1	Spring Boot Backend
+librarymanagementpipeline-mysql-1	MySQL Database
+
+Jenkins runs separately.
+
+🐳 Docker Commands
+Start Application
+docker compose up --build -d
+Stop Application
+docker compose down
+Restart Application
+docker compose restart
+View Running Containers
+docker ps
+View Application Logs
+docker compose logs
+View Backend Logs
+docker compose logs library-app
+🤖 Jenkins
+
+Jenkins is used to automate the CI/CD process.
+
+The Jenkins server performs:
+
+GitHub
+   ↓
+Checkout
+   ↓
+Maven Build
+   ↓
+Unit Tests
+   ↓
+Package
+   ↓
+Docker Build
+   ↓
+Docker Compose
+   ↓
+Deployment
+💻 Running the Project Locally
+1. Clone the Repository
+git clone https://github.com/rohitsalapu00/LibraryManagementSystem.git
+2. Enter the Project
+cd LibraryManagementSystem
+3. Build the Backend
+mvn clean package
+4. Run Tests
+mvn test
+5. Start the Application with Docker
+docker compose up --build -d
+🌐 Application URLs
+Frontend
+http://localhost/
+Backend API
+http://localhost:8081/books
+Jenkins
 http://localhost:9090
-
-
----
-
-# 🔌 REST API
+🔌 REST API
 
 The backend provides REST APIs for managing books.
 
-Example:
-
-```text
+Get All Books
 GET /books
-
-
----
-
-# 📊 Database
+Get Book by ID
+GET /books/{id}
+Add Book
+POST /books
+Update Book
+PUT /books/{id}
+Delete Book
+DELETE /books/{id}
+Issue Book
+PUT /books/{id}/issue
+Return Book
+PUT /books/{id}/return
+🗄️ Database
 
 The application uses:
 
-```text
 Database: MySQL
 Version: 8.4
 Database Name: librarydb
 
-SELECT COUNT(*) FROM books;
+The main table is:
+
+books
+
+The book information includes:
+
+id
+title
+author
+status
+borrowerName
+issueDate
+dueDate
+returnDate
+📊 Current Database Status
+
+The database was verified after deployment.
+
+Current number of books:
+
+4
+
+Duplicate title-author combinations:
+
+0
+
+Example verification query:
+
 SELECT title, author, COUNT(*) AS copies
 FROM books
 GROUP BY title, author
 HAVING COUNT(*) > 1;
 
+Result:
 
----
+Empty set
+🧪 Build and Test Results
 
-# 📊 Build Results
+The Jenkins pipeline successfully performs:
 
-The latest successful Jenkins pipeline verifies:
-
-```text
-✅ GitHub Repository Checkout
+✅ GitHub Checkout
 ✅ Maven Compilation
-✅ Unit Tests
-✅ 11 Tests Passed
-✅ Spring Boot JAR Generated
-✅ Backend Docker Image Created
-✅ Frontend Docker Image Created
+✅ Unit Testing
+✅ Spring Boot Packaging
+✅ Backend Docker Image Creation
+✅ Frontend Docker Image Creation
 ✅ Docker Compose Deployment
-✅ MySQL Container Started
-✅ Backend Container Started
-✅ Frontend Container Started
-✅ Backend Health Check Passed
-✅ Frontend Health Check Passed
-✅ Jenkins Pipeline Completed Successfully
+✅ Backend Health Check
+✅ Frontend Health Check
 
+Latest pipeline result:
 
----
+Finished: SUCCESS
 
+Unit tests:
 
-# 📸 Project Screenshots
+Tests run: 11
+Failures: 0
+Errors: 0
+Skipped: 0
+📸 Screenshots
 
-## 🏠 Home Page
+Screenshots can be stored in the screenshots directory.
 
-<p align="center">
-  <img src="screenshots/Home.png" width="900" alt="Home Page"/>
-</p>
+Example:
 
----
+screenshots/
+├── Home.png
+├── Books.png
+├── AddBooks.png
+├── docker-container-running.png
+├── docker-ps-output.png
+├── jenkins-dashboard-success.png
+└── pipeline-console-success.png
+⚠️ Challenges Faced
+Maven PATH
 
-## 📚 View Books
+Jenkins initially could not find Maven:
 
-<p align="center">
-  <img src="screenshots/Books.png" width="900" alt="View Books"/>
-</p>
+mvn: command not found
 
----
+The Jenkins environment PATH was configured to include the required tools.
 
-## ➕ Add Book
+Docker PATH
 
-<p align="center">
-  <img src="screenshots/AddBooks.png" width="900" alt="Add Book"/>
-</p>
+Jenkins also initially could not access Docker.
 
----
+The Jenkins environment was updated so that Docker could be executed by the pipeline.
 
-## 🐳 Docker Desktop
+Duplicate Books
 
-Docker Desktop showing the project containers running successfully.
+The application was initially creating duplicate books during startup.
 
-<p align="center">
-  <img src="screenshots/docker-container-running.png" alt="Docker Desktop" width="900"/>
-</p>
+This was fixed by checking whether the title and author already exist before inserting the book.
 
----
+Docker Deployment
 
-## 💻 Docker Container Status
+The pipeline was configured to stop old containers and deploy the latest application using Docker Compose.
 
-Terminal output confirming that the Docker containers are running.
+Application Startup Time
 
-<p align="center">
-  <img src="screenshots/docker-ps-output.png" alt="Docker PS Output" width="900"/>
-</p>
+The backend sometimes required additional time to start.
 
----
+A health-check stage was added to wait for the backend before marking deployment as successful.
 
-## 🤖 Jenkins Dashboard
+📚 Learning Outcomes
 
-Jenkins dashboard displaying the configured pipeline and successful build history.
+This project provided practical experience with:
 
-<p align="center">
-  <img src="screenshots/jenkins-dashboard-success.png" alt="Jenkins Dashboard" width="900"/>
-</p>
+Java
+Spring Boot
+REST APIs
+Spring Data JPA
+MySQL
+Maven
+Unit Testing
+Mockito
+HTML
+CSS
+JavaScript
+Bootstrap
+Docker
+Docker Compose
+Jenkins
+CI/CD
+Git
+GitHub
+Linux command-line tools
+🎯 Project Outcome
 
----
+The project demonstrates a complete development and deployment workflow:
 
-## ✅ Successful Pipeline Execution
-
-Console output showing the successful execution of the Jenkins CI/CD pipeline.
-
-<p align="center">
-  <img src="screenshots/pipeline-console-success.png" alt="Pipeline Console Output" width="900"/>
-</p>
-
-# 🔄 Jenkins Pipeline
-
-The project uses a **Declarative Jenkins Pipeline**.
-
-Pipeline stages:
-
-```text
-1. Checkout Source Code
-        ↓
-2. Maven Build
-        ↓
-3. Unit Testing
-        ↓
-4. Package Spring Boot Application
-        ↓
-5. Build Backend Docker Image
-        ↓
-6. Build Frontend Docker Image
-        ↓
-7. Deploy using Docker Compose
-        ↓
-8. Backend Health Check
-        ↓
-9. Frontend Health Check
-        ↓
-10. Pipeline Success
-
-
----
-
-```markdown
-# 📈 DevOps Workflow
-
-```text
-Write Code
-     │
-     ▼
-Git Commit
-     │
-     ▼
-GitHub Push
-     │
-     ▼
-Jenkins Trigger
-     │
-     ▼
-Checkout Repository
-     │
-     ▼
-Maven Build
-     │
-     ▼
-Execute Unit Tests
-     │
-     ▼
-Package Application
-     │
-     ▼
-Build Backend Image
-     │
-     ▼
-Build Frontend Image
-     │
-     ▼
-Docker Compose Deploy
-     │
-     ▼
+Code
+ ↓
+Git
+ ↓
+GitHub
+ ↓
+Jenkins
+ ↓
+Maven
+ ↓
+Unit Tests
+ ↓
+JAR
+ ↓
+Docker Images
+ ↓
+Docker Compose
+ ↓
+MySQL + Backend + Frontend
+ ↓
 Health Checks
-     │
-     ▼
+ ↓
 Running Application
+🔮 Future Enhancements
 
+Possible future improvements include:
 
----
+SonarQube code quality analysis
+GitHub Webhooks
+Docker Hub image publishing
+Kubernetes deployment
+AWS deployment
+Prometheus monitoring
+Grafana dashboards
+More automated tests
+Authentication and authorization
+Role-based access control
+👨‍💻 Developed By
+Member	Contribution
+Salapu Rohit	Spring Boot Development, GitHub Repository Management
+Salla Vamsi Ram	Library Management System Development & Testing
+Malla Jyothi Prakash	Dockerized Jenkins, Jenkins Pipeline, CI/CD Integration and Documentation
 
-```markdown
-# ⚠ Challenges Faced
+All members are pursuing:
 
-## Jenkins PATH Configuration
-
-Jenkins initially could not find Maven and Docker because Jenkins was running with a different environment PATH from the normal terminal.
-
-This was resolved by configuring the required paths in the Jenkinsfile.
-
-## Duplicate Book Records
-
-Duplicate book records were identified during MySQL database testing.
-
-The duplicate records were removed and duplicate prevention was implemented using:
-
-```java
-existsByTitleAndAuthor()
-
-
----
-
-```markdown
-# 📚 Learning Outcomes
-
-Through this project, we learned:
-
-- Docker
-- Docker Compose
-- Multi-container Deployment
-- Docker Networking
-- Docker Volumes
-- Docker Image Creation
-- Jenkins Declarative Pipelines
-- CI/CD Workflow Automation
-- Maven Build Automation
-- JUnit Unit Testing
-- Mockito
-- REST API Development
-- REST API Testing
-- MySQL Database Management
-- Application Health Checks
-- Git and GitHub
-- Nginx
-- Spring Boot
-
-# 🎖 Project Outcomes
-
-The project successfully demonstrates:
-
-- ✅ Dockerized Jenkins Server
-- ✅ Maven Build Automation
-- ✅ Spring Boot Packaging
-- ✅ Automated Unit Testing
-- ✅ 11 Passing Unit Tests
-- ✅ Duplicate Book Prevention
-- ✅ Backend Docker Image
-- ✅ Frontend Docker Image
-- ✅ MySQL Container
-- ✅ Docker Compose Deployment
-- ✅ Backend Health Check
-- ✅ Frontend Health Check
-- ✅ GitHub Integration
-- ✅ Complete CI/CD Pipeline
-
-# 🔮 Future Enhancements
-
-The following improvements can be considered for future versions:
-
-- SonarQube Integration
-- Docker Hub Image Publishing
-- GitHub Webhooks for automatic Jenkins triggering
-- Automated API/Integration Testing
-- Security Scanning
-- Kubernetes Deployment
-- AWS EC2 Deployment
-- Production Cloud Deployment
-- Prometheus Monitoring
-- Grafana Dashboards
-- Container Security Scanning
-
-# 👨‍💻 Developed By
-
-<div align="center">
-
-| **Salapu Rohit** | **Salla Vamsi Ram** | **Malla Jyothi Prakash** |
-| :----------------------------: | :----------------------------: | :----------------------------: |
-| B.Tech CSE | B.Tech CSE | B.Tech CSE |
-| Lovely Professional University | Lovely Professional University | Lovely Professional University |
-
-</div>
-
-# 🤝 Contributors
-
-This project was collaboratively developed as part of a **DevOps learning initiative** to demonstrate how Jenkins can be containerized using Docker and integrated with a Spring Boot application for Continuous Integration and Continuous Deployment.
-
-## Team Responsibilities
-
-| Member | Contribution |
-| ------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Salapu Rohit** | Spring Boot Development, GitHub Repository Management |
-| **Salla Vamsi Ram** | Library Management System Development & Testing |
-| **Malla Jyothi Prakash** | Dockerized Jenkins Setup, Jenkins Pipeline, CI/CD Integration, Docker Configuration, Testing, Documentation |
-
-# 📂 Project Repository
+B.Tech Computer Science & Engineering
+Lovely Professional University
+📂 Repository
 
 GitHub Repository:
 
 https://github.com/rohitsalapu00/LibraryManagementSystem
 
-# 📊 Project Statistics
+📊 Project Summary
+Category	Details
+Project Type	Full Stack DevOps Project
+Backend	Spring Boot
+Frontend	HTML, CSS, JavaScript
+Database	MySQL 8.4
+Testing	JUnit / Mockito
+Build Tool	Maven
+CI/CD	Jenkins
+Containerization	Docker
+Deployment	Docker Compose
+Web Server	Nginx
+Version Control	Git & GitHub
+Java Version	17
+⭐ Conclusion
 
-| Category | Details |
-| ---------------- | ------------------------------ |
-| Project Type | Full Stack DevOps Project |
-| Backend | Spring Boot 3.5.4 |
-| Programming Language | Java 17 |
-| Frontend | HTML, CSS, JavaScript |
-| UI Framework | Bootstrap 5 |
-| Database | MySQL 8.4 |
-| CI/CD Tool | Jenkins |
-| Container Platform | Docker |
-| Web Server | Nginx |
-| Deployment | Docker Compose |
-| Build Tool | Maven |
-| Testing | JUnit + Mockito |
-| Version Control | Git & GitHub |
-| Pipeline | Declarative Jenkins Pipeline |
-| Automated Tests | 11 |
-| Test Result | 11 Passed |
+This project demonstrates how a Spring Boot application can be integrated with GitHub, Jenkins, Maven, Docker, Docker Compose, and MySQL to create an automated CI/CD workflow.
 
-# 📌 Key Achievements
-
-- ✅ Dockerized Jenkins Server
-- ✅ Maven Build Automation
-- ✅ Spring Boot Packaging
-- ✅ Automated Unit Testing
-- ✅ 11 Passing Unit Tests
-- ✅ Duplicate Book Prevention
-- ✅ Backend Docker Image Creation
-- ✅ Frontend Docker Image Creation
-- ✅ MySQL Containerization
-- ✅ Docker Compose Deployment
-- ✅ Backend Health Check
-- ✅ Frontend Health Check
-- ✅ Complete Jenkins CI/CD Pipeline
-- ✅ GitHub Integration
-
-# ⭐ Support the Project
-
-If you found this project helpful, please consider giving it a ⭐ on GitHub.
-
-Your support encourages us to build more projects and continue learning DevOps and cloud technologies.
-
-# 📬 Connect With Us
-
-### 👨‍💻 Salapu Rohit
-
-GitHub:
-
-https://github.com/rohitsalapu00
-
----
-
-### 👨‍💻 Malla Jyothi Prakash
-
-GitHub:
-
-https://github.com/mallajyothiprakash
-
----
-
-### 👨‍💻 Salla Vamsi Ram
-
-GitHub:
-
-https://github.com/vamsiram24
-
----
+The pipeline successfully builds, tests, packages, containerizes, deploys, and performs health checks on the application.
 
 <div align="center">
+⭐ Thank You for Visiting Our Repository ⭐
 
-## ⭐ Thank You for Visiting Our Repository ⭐
+Library Management System Team
 
-**If you like this project, don't forget to leave a ⭐ on GitHub!**
-
-Made with ❤️ by the Library Management System Team
-
-</div>
+</div> ```
 ````
