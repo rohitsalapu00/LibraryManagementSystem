@@ -109,22 +109,20 @@ Spring Boot JAR
 Build Success
 ```
 
-
-
 ---
 
 # ⚙️ Technologies Used
 
-| Technology | Purpose |
-|------------|----------|
-| 🐳 Docker | Containerization |
-| 🤖 Jenkins | CI Server |
-| ☕ Java 17 | Programming Language |
-| 🍃 Spring Boot | Backend Framework |
-| 📦 Maven | Build Automation |
-| 🐙 Git | Version Control |
-| 🌐 GitHub | Source Code Repository |
-| 🐧 Ubuntu (WSL2) | Linux Environment |
+| Technology       | Purpose                |
+| ---------------- | ---------------------- |
+| 🐳 Docker        | Containerization       |
+| 🤖 Jenkins       | CI Server              |
+| ☕ Java 17       | Programming Language   |
+| 🍃 Spring Boot   | Backend Framework      |
+| 📦 Maven         | Build Automation       |
+| 🐙 Git           | Version Control        |
+| 🌐 GitHub        | Source Code Repository |
+| 🐧 Ubuntu (WSL2) | Linux Environment      |
 
 ---
 
@@ -224,19 +222,19 @@ J --> M[Frontend]
 | Build Frontend Docker Image | Create Docker image for Nginx frontend   |
 | Deploy Application          | Deploy all services using Docker Compose |
 
-
-
 ---
+
 # 🐳 Docker Images
 
 The project builds the following Docker images:
 
-| Image | Purpose |
-|--------|----------|
-| my-jenkins | Jenkins CI Server with Java, Maven, Git, Docker and Docker Compose |
-| librarymanagementsystem-library-app | Spring Boot Backend |
-| librarymanagementsystem-frontend | Frontend served using Nginx |
-| mysql:8.4 | MySQL Database |
+| Image                               | Purpose                                                            |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| my-jenkins                          | Jenkins CI Server with Java, Maven, Git, Docker and Docker Compose |
+| librarymanagementsystem-library-app | Spring Boot Backend                                                |
+| librarymanagementsystem-frontend    | Frontend served using Nginx                                        |
+| mysql:8.4                           | MySQL Database                                                     |
+
 # 🐳 Docker Commands
 
 ### Start Docker Images
@@ -255,12 +253,13 @@ docker compose down
 
 After successful deployment, the following containers are running:
 
-| Container | Purpose |
-|-----------|----------|
-| jenkins-server | Jenkins CI Server |
-| librarymanagementpipeline-mysql-1 | MySQL Database |
-| librarymanagementpipeline-library-app-1 | Spring Boot Backend |
-| librarymanagementpipeline-frontend-1 | Frontend Application |
+| Container                               | Purpose              |
+| --------------------------------------- | -------------------- |
+| jenkins-server                          | Jenkins CI Server    |
+| librarymanagementpipeline-mysql-1       | MySQL Database       |
+| librarymanagementpipeline-library-app-1 | Spring Boot Backend  |
+| librarymanagementpipeline-frontend-1    | Frontend Application |
+
 ### Build Jenkins Image
 
 ```bash
@@ -370,6 +369,7 @@ http://localhost:9090
 ✅ Jenkins Pipeline Completed
 
 ---
+
 # 📸 Project Screenshots
 
 ## 🏠 Home Page
@@ -395,6 +395,7 @@ http://localhost:9090
 </p>
 
 ---
+
 ## 🐳 Docker Desktop
 
 Docker Desktop showing the custom Jenkins container running successfully.
@@ -434,6 +435,7 @@ Console output showing the successful execution of the Jenkins pipeline.
 </p>
 
 ---
+
 # 🔄 Jenkins Pipeline
 
 The project uses a Declarative Jenkins Pipeline.
@@ -447,6 +449,7 @@ Pipeline Stages:
 5. Build Backend Docker Image
 6. Build Frontend Docker Image
 7. Deploy using Docker Compose
+
 # 📈 DevOps Workflow
 
 ```text
@@ -557,7 +560,6 @@ Through this project I learned:
 - Jenkins Declarative Pipelines
 - CI/CD Workflow Automation
 
-
 ---
 
 # 🎖 Project Outcomes
@@ -592,9 +594,9 @@ Through this project I learned:
 
 <div align="center">
 
-| **Salapu Rohit** | **Salla Vamsi Ram** | **Malla Jyothi Prakash** |
-|:----------------:|:-------------------:|:------------------------:|
-| B.Tech CSE | B.Tech CSE | B.Tech CSE |
+|        **Salapu Rohit**        |      **Salla Vamsi Ram**       |    **Malla Jyothi Prakash**    |
+| :----------------------------: | :----------------------------: | :----------------------------: |
+|           B.Tech CSE           |           B.Tech CSE           |           B.Tech CSE           |
 | Lovely Professional University | Lovely Professional University | Lovely Professional University |
 
 </div>
@@ -607,10 +609,10 @@ This project was collaboratively developed as part of a **DevOps learning initia
 
 ### Team Responsibilities
 
-| Member | Contribution |
-|---------|--------------|
-| **Salapu Rohit** | Spring Boot Development, GitHub Repository Management |
-| **Salla Vamsi Ram** | Library Management System Development & Testing |
+| Member                   | Contribution                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Salapu Rohit**         | Spring Boot Development, GitHub Repository Management                                            |
+| **Salla Vamsi Ram**      | Library Management System Development & Testing                                                  |
 | **Malla Jyothi Prakash** | Dockerized Jenkins Setup, WSL2 Configuration, Jenkins Pipeline, CI/CD Integration, Documentation |
 
 ---
@@ -637,7 +639,6 @@ https://github.com/rohitsalapu00/LibraryManagementSystem
 | Build Tool         | Maven                        |
 | Version Control    | Git & GitHub                 |
 | Pipeline           | Declarative Jenkins Pipeline |
-
 
 ---
 
@@ -691,26 +692,3 @@ GitHub: https://github.com/vamsiram24
 Made with ❤️ by the Library Management System Team
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

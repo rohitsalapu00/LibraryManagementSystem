@@ -5,73 +5,76 @@ let currentPage = 1;
 const booksPerPage = 5;
 
 async function getBooks() {
-    try {
-        const response = await fetch(API_URL);
-        const books = await response.json();
-        const totalBooks = document.getElementById("totalBooks");
-        if (totalBooks) {
-            totalBooks.innerText = books.length;
-        }
-        const totalBooksStats = document.getElementById("totalBooksStats");
-        if (totalBooksStats) {
-            totalBooksStats.innerText = books.length;
-        }
-        const authors = [...new Set(books.map(book => book.author))];
-        const totalAuthors = document.getElementById("totalAuthors");
-        if (totalAuthors) {
-            totalAuthors.innerText = authors.length;
-        }
-        const list = document.getElementById("recentBooks");
-        if (list) {
-            list.innerHTML = "";
-            books.slice(-5).reverse().forEach(book => {
-                list.innerHTML += `
+  try {
+    const response = await fetch(API_URL);
+    const books = await response.json();
+    const totalBooks = document.getElementById("totalBooks");
+    if (totalBooks) {
+      totalBooks.innerText = books.length;
+    }
+    const totalBooksStats = document.getElementById("totalBooksStats");
+    if (totalBooksStats) {
+      totalBooksStats.innerText = books.length;
+    }
+    const authors = [...new Set(books.map((book) => book.author))];
+    const totalAuthors = document.getElementById("totalAuthors");
+    if (totalAuthors) {
+      totalAuthors.innerText = authors.length;
+    }
+    const list = document.getElementById("recentBooks");
+    if (list) {
+      list.innerHTML = "";
+      books
+        .slice(-5)
+        .reverse()
+        .forEach((book) => {
+          list.innerHTML += `
                     <li class="list-group-item">
                         📖 ${book.title}
                         <br>
                         <small>${book.author}</small>
                     </li>
                 `;
-            });
-        }
-    } catch (error) {
-        console.error(error);
+        });
     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function loadBooks() {
-    try {
-        const response = await fetch(API_URL);
-        allBooks = await response.json();
-        displayBooks(allBooks);
-    } catch (error) {
-        console.error(error);
-        alert("Unable to load books.");
-    }
+  try {
+    const response = await fetch(API_URL);
+    allBooks = await response.json();
+    displayBooks(allBooks);
+  } catch (error) {
+    console.error(error);
+    alert("Unable to load books.");
+  }
 }
 
 function displayBooks(books) {
-    alert("New displayBooks is running");
-    const start = (currentPage - 1) * booksPerPage;
-    const end = start + booksPerPage;
-    const paginatedBooks = books.slice(start, end);
+  const start = (currentPage - 1) * booksPerPage;
+  const end = start + booksPerPage;
+  const paginatedBooks = books.slice(start, end);
 
-    let rows = "";
+  let rows = "";
 
-    paginatedBooks.forEach((book, index) => {
+  paginatedBooks.forEach((book, index) => {
+    const serialNo = start + index + 1;
 
-        const serialNo = start + index + 1;
-
-        rows += `
+    rows += `
         <tr>
             <td>${serialNo}</td>
             <td>${book.title}</td>
             <td>${book.author}</td>
 
             <td>
-                ${book.status === "Issued"
+                ${
+                  book.status === "Issued"
                     ? '<span class="badge bg-danger">Issued</span>'
-                    : '<span class="badge bg-success">Available</span>'}
+                    : '<span class="badge bg-success">Available</span>'
+                }
             </td>
 
             <td>
@@ -95,7 +98,7 @@ function displayBooks(books) {
                 </button>
 
                 ${
-                    book.status === "Available"
+                  book.status === "Available"
                     ? `<button
                             class="btn btn-secondary btn-sm"
                             onclick="issueBook(${book.id})">
@@ -112,240 +115,213 @@ function displayBooks(books) {
 
         </tr>
         `;
-    });
+  });
 
-    document.getElementById("bookTable").innerHTML = rows;
+  document.getElementById("bookTable").innerHTML = rows;
 
-    document.getElementById("pageNumber").innerText =
-        `Page ${currentPage}`;
+  document.getElementById("pageNumber").innerText = `Page ${currentPage}`;
 }
 async function saveBook() {
-    const title = document.getElementById("title").value.trim();
-    const author = document.getElementById("author").value.trim();
-    if (title === "" || author === "") {
-        alert("Please enter both title and author.");
-        return;
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  if (title === "" || author === "") {
+    alert("Please enter both title and author.");
+    return;
+  }
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        author: author,
+      }),
+    });
+    if (response.ok) {
+      showToast("Book Added Successfully!");
+      setTimeout(() => {
+        window.location.href = "books.html";
+      }, 1500);
+    } else {
+      alert("❌ Failed to add book.");
     }
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                title: title,
-                author: author
-            })
-        });
-        if (response.ok) {
-            showToast("Book Added Successfully!");
-            setTimeout(() => {
-
-    window.location.href = "books.html";
-
-}, 1500);
-        } else {
-            alert("❌ Failed to add book.");
-        }
-    } catch (error) {
-        console.error(error);
-        alert("Cannot connect to Spring Boot Backend.");
-    }
+  } catch (error) {
+    console.error(error);
+    alert("Cannot connect to Spring Boot Backend.");
+  }
 }
 
-function editBook(id){
-    window.location.href =
-        "edit-book.html?id=" + id;
-
+function editBook(id) {
+  window.location.href = "edit-book.html?id=" + id;
 }
-async function viewBook(id){
+async function viewBook(id) {
+  const response = await fetch(API_URL + "/" + id);
 
-    const response = await fetch(API_URL + "/" + id);
+  const book = await response.json();
 
-    const book = await response.json();
+  document.getElementById("viewId").innerText = book.id;
 
-    document.getElementById("viewId").innerText = book.id;
+  document.getElementById("viewTitle").innerText = book.title;
 
-    document.getElementById("viewTitle").innerText = book.title;
+  document.getElementById("viewAuthor").innerText = book.author;
 
-    document.getElementById("viewAuthor").innerText = book.author;
+  const modal = new bootstrap.Modal(document.getElementById("viewBookModal"));
 
-    const modal = new bootstrap.Modal(
-        document.getElementById("viewBookModal")
-    );
-
-    modal.show();
-
+  modal.show();
 }
 
-async function loadBook(){
-    const params =
-        new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const response =
-        await fetch(API_URL + "/" + id);
-    const book =
-        await response.json();
-    document.getElementById("bookId").value = book.id;
-    document.getElementById("title").value = book.title;
-    document.getElementById("author").value = book.author;
+async function loadBook() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const response = await fetch(API_URL + "/" + id);
+  const book = await response.json();
+  document.getElementById("bookId").value = book.id;
+  document.getElementById("title").value = book.title;
+  document.getElementById("author").value = book.author;
 }
 
 async function deleteBook(id) {
-    const confirmDelete = confirm("Are you sure you want to delete this book?");
-    if (!confirmDelete) {
-        return;
+  const confirmDelete = confirm("Are you sure you want to delete this book?");
+  if (!confirmDelete) {
+    return;
+  }
+  try {
+    const response = await fetch(API_URL + "/" + id, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      showToast("Book Deleted Successfully!");
+      loadBooks();
+    } else {
+      alert("❌ Failed to delete book.");
     }
-    try {
-        const response = await fetch(API_URL + "/" + id, {
-            method: "DELETE"
-        });
-        if (response.ok) {
-            showToast("Book Deleted Successfully!");
-            loadBooks();
-        } else {
-            alert("❌ Failed to delete book.");
-        }
-    } catch (error) {
-        console.error(error);
-        alert("Unable to connect to Spring Boot Backend.");
-    }
+  } catch (error) {
+    console.error(error);
+    alert("Unable to connect to Spring Boot Backend.");
+  }
 }
 
-async function updateBook(){
-    const id =
-        document.getElementById("bookId").value;
-    const title =
-        document.getElementById("title").value;
-    const author =
-        document.getElementById("author").value;
-    const response =
-        await fetch(API_URL + "/" + id, {
-        method:"PUT",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            title:title,
-            author:author
-        })
-    });
-    if(response.ok){
-        showToast("Book Updated Successfully!");
-        setTimeout(() => {
-
-    window.location.href = "books.html";
-
-}, 1500);
-    }else{
-        alert("Update Failed");
-    }
+async function updateBook() {
+  const id = document.getElementById("bookId").value;
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const response = await fetch(API_URL + "/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: title,
+      author: author,
+    }),
+  });
+  if (response.ok) {
+    showToast("Book Updated Successfully!");
+    setTimeout(() => {
+      window.location.href = "books.html";
+    }, 1500);
+  } else {
+    alert("Update Failed");
+  }
 }
 
 function nextPage() {
-    if(currentPage * booksPerPage < allBooks.length){
-        currentPage++;
-        displayBooks(allBooks);
-    }
+  if (currentPage * booksPerPage < allBooks.length) {
+    currentPage++;
+    displayBooks(allBooks);
+  }
 }
 
-function previousPage(){
-    if(currentPage > 1){
-        currentPage--;
-        displayBooks(allBooks);
-    }
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    displayBooks(allBooks);
+  }
 }
 
 function searchBooks() {
-    const keyword = document
-        .getElementById("searchBook")
-        .value
-        .toLowerCase();
-    const filteredBooks = allBooks.filter(book =>
-        book.title.toLowerCase().includes(keyword) ||
-        book.author.toLowerCase().includes(keyword)
-    );
-    displayBooks(filteredBooks);
+  const keyword = document.getElementById("searchBook").value.toLowerCase();
+  const filteredBooks = allBooks.filter(
+    (book) =>
+      book.title.toLowerCase().includes(keyword) ||
+      book.author.toLowerCase().includes(keyword),
+  );
+  displayBooks(filteredBooks);
 }
 
 async function checkBackendStatus() {
+  const status = document.getElementById("backendStatus");
 
-    const status = document.getElementById("backendStatus");
+  if (!status) {
+    return;
+  }
 
-    if (!status) {
-        return;
+  try {
+    const response = await fetch(API_URL);
+
+    if (response.ok) {
+      status.innerHTML = "🟢 Online";
+      status.className = "text-success";
+    } else {
+      throw new Error();
     }
-
-    try {
-
-        const response = await fetch(API_URL);
-
-        if (response.ok) {
-
-            status.innerHTML = "🟢 Online";
-            status.className = "text-success";
-
-        } else {
-
-            throw new Error();
-
-        }
-
-    } catch (error) {
-
-        status.innerHTML = "🔴 Offline";
-        status.className = "text-danger";
-
-    }
-
+  } catch (error) {
+    status.innerHTML = "🔴 Offline";
+    status.className = "text-danger";
+  }
 }
 
 async function issueBook(id) {
+  try {
+    const response = await fetch(API_URL + "/issue/" + id, {
+      method: "PUT",
+    });
 
-    try {
+    if (response.ok) {
+      showToast("Book Issued Successfully!");
 
-        const response = await fetch(API_URL + "/issue/" + id, {
-            method: "PUT"
-        });
-
-        if (response.ok) {
-
-            showToast("Book Issued Successfully!");
-
-            loadBooks();
-
-        } else {
-
-            alert("Failed to issue book.");
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Unable to connect to Spring Boot Backend.");
-
+      loadBooks();
+    } else {
+      alert("Failed to issue book.");
     }
+  } catch (error) {
+    console.error(error);
 
+    alert("Unable to connect to Spring Boot Backend.");
+  }
 }
+async function returnBook(id) {
+  try {
+    const response = await fetch(API_URL + "/return/" + id, {
+      method: "PUT",
+    });
 
+    if (response.ok) {
+      showToast("Book Returned Successfully!");
+
+      loadBooks();
+    } else {
+      alert("Failed to return book.");
+    }
+  } catch (error) {
+    console.error(error);
+
+    alert("Unable to connect to Spring Boot Backend.");
+  }
+}
 function showToast(message, type = "success") {
+  const toastElement = document.getElementById("liveToast");
 
-    const toastElement = document.getElementById("liveToast");
+  const toastMessage = document.getElementById("toastMessage");
 
-    const toastMessage = document.getElementById("toastMessage");
+  toastMessage.innerText = message;
 
-    toastMessage.innerText = message;
+  toastElement.className =
+    "toast align-items-center text-bg-" + type + " border-0";
 
-    toastElement.className =
-        "toast align-items-center text-bg-" +
-        type +
-        " border-0";
+  const toast = new bootstrap.Toast(toastElement);
 
-    const toast =
-        new bootstrap.Toast(toastElement);
-
-    toast.show();
-
+  toast.show();
 }
