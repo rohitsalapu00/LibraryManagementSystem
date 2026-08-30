@@ -85,7 +85,7 @@ pipeline {
     post {
 
         success {
-            echo 'Application Built and Deployed Successfully!'
+            echo 'CI/CD Pipeline Completed Successfully!'
         }
 
         failure {
