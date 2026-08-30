@@ -5,6 +5,7 @@ import com.library.exception.BookNotFoundException;
 import com.library.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,11 +23,18 @@ public class BookService {
 
     public Book getBookById(int id) {
         return repository.findById(id)
-                .orElseThrow(() ->
-                        new BookNotFoundException("Book with ID " + id + " not found"));
+                .orElseThrow(() -> new BookNotFoundException("Book with ID " + id + " not found"));
     }
 
     public Book addBook(Book book) {
+
+    if (repository.existsByTitleAndAuthor(
+            book.getTitle(),
+            book.getAuthor())) {
+
+        throw new IllegalArgumentException(
+                "Book with the same title and author already exists");
+    }
 
     if (book.getStatus() == null || book.getStatus().trim().isEmpty()) {
         book.setStatus("Available");
@@ -60,22 +68,37 @@ public class BookService {
         return false;
     }
 
-    public Book issueBook(int id) {
-        Book book = repository.findById(id).orElse(null);
+    public Book issueBook(int id, String borrowerName) {
 
-        if (book != null) {
-            book.setStatus("Issued");
-            return repository.save(book);
+    Book book = repository.findById(id).orElse(null);
+
+    if (book != null) {
+
+        if ("Issued".equals(book.getStatus())) {
+            throw new IllegalStateException("Book is already issued.");
         }
 
-        return null;
+        book.setStatus("Issued");
+        book.setBorrowerName(borrowerName);
+        book.setIssueDate(LocalDate.now());
+        book.setDueDate(LocalDate.now().plusDays(7));
+        book.setReturnDate(null);
+
+        return repository.save(book);
     }
 
+    return null;
+}
+
     public Book returnBook(int id) {
+
         Book book = repository.findById(id).orElse(null);
 
         if (book != null) {
+
             book.setStatus("Available");
+            book.setReturnDate(LocalDate.now());
+
             return repository.save(book);
         }
 

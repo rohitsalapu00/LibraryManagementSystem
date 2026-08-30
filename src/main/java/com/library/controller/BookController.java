@@ -34,8 +34,10 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable int id,
-                           @Valid @RequestBody Book book) {
+    public Book updateBook(
+            @PathVariable int id,
+            @Valid @RequestBody Book book) {
+
         return service.updateBook(id, book);
     }
 
@@ -52,8 +54,11 @@ public class BookController {
     }
 
     @PutMapping("/issue/{id}")
-    public Book issueBook(@PathVariable int id) {
-        return service.issueBook(id);
+    public Book issueBook(
+            @PathVariable int id,
+            @RequestParam String borrowerName) {
+
+        return service.issueBook(id, borrowerName);
     }
 
     @PutMapping("/return/{id}")

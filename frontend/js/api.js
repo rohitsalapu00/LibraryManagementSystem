@@ -124,10 +124,12 @@ function displayBooks(books) {
 async function saveBook() {
   const title = document.getElementById("title").value.trim();
   const author = document.getElementById("author").value.trim();
+
   if (title === "" || author === "") {
     alert("Please enter both title and author.");
     return;
   }
+
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -139,13 +141,17 @@ async function saveBook() {
         author: author,
       }),
     });
+
     if (response.ok) {
       showToast("Book Added Successfully!");
+
       setTimeout(() => {
         window.location.href = "books.html";
       }, 1500);
     } else {
-      alert("❌ Failed to add book.");
+      const message = await response.text();
+
+      alert("❌ " + (message || "Failed to add book."));
     }
   } catch (error) {
     console.error(error);
@@ -157,19 +163,33 @@ function editBook(id) {
   window.location.href = "edit-book.html?id=" + id;
 }
 async function viewBook(id) {
-  const response = await fetch(API_URL + "/" + id);
+  try {
+    const response = await fetch(API_URL + "/" + id);
 
-  const book = await response.json();
+    if (!response.ok) {
+      throw new Error("Book not found");
+    }
 
-  document.getElementById("viewId").innerText = book.id;
+    const book = await response.json();
 
-  document.getElementById("viewTitle").innerText = book.title;
+    document.getElementById("viewId").innerText = book.id;
+    document.getElementById("viewTitle").innerText = book.title;
+    document.getElementById("viewAuthor").innerText = book.author;
+    document.getElementById("viewStatus").innerText = book.status;
+    document.getElementById("viewBorrower").innerText =
+      book.borrowerName || "-";
+    document.getElementById("viewIssueDate").innerText = book.issueDate || "-";
+    document.getElementById("viewDueDate").innerText = book.dueDate || "-";
+    document.getElementById("viewReturnDate").innerText =
+      book.returnDate || "-";
 
-  document.getElementById("viewAuthor").innerText = book.author;
+    const modal = new bootstrap.Modal(document.getElementById("viewBookModal"));
 
-  const modal = new bootstrap.Modal(document.getElementById("viewBookModal"));
-
-  modal.show();
+    modal.show();
+  } catch (error) {
+    console.error(error);
+    alert("Unable to load book details.");
+  }
 }
 
 async function loadBook() {
@@ -272,23 +292,34 @@ async function checkBackendStatus() {
     status.className = "text-danger";
   }
 }
-
 async function issueBook(id) {
+  const borrowerName = prompt("Enter borrower name:");
+
+  if (!borrowerName || borrowerName.trim() === "") {
+    alert("Borrower name is required.");
+    return;
+  }
+
   try {
-    const response = await fetch(API_URL + "/issue/" + id, {
-      method: "PUT",
-    });
+    const response = await fetch(
+      API_URL +
+        "/issue/" +
+        id +
+        "?borrowerName=" +
+        encodeURIComponent(borrowerName.trim()),
+      {
+        method: "PUT",
+      },
+    );
 
     if (response.ok) {
       showToast("Book Issued Successfully!");
-
       loadBooks();
     } else {
       alert("Failed to issue book.");
     }
   } catch (error) {
     console.error(error);
-
     alert("Unable to connect to Spring Boot Backend.");
   }
 }

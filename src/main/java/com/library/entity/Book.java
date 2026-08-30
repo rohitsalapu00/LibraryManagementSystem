@@ -3,6 +3,8 @@ package com.library.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -18,6 +20,14 @@ public class Book {
     private String author;
 
     private String status = "Available";
+
+    private String borrowerName;
+
+    private LocalDate issueDate;
+
+    private LocalDate dueDate;
+
+    private LocalDate returnDate;
 
     public Book() {
     }
@@ -65,5 +75,37 @@ public class Book {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getBorrowerName() {
+        return borrowerName;
+    }
+
+    public void setBorrowerName(String borrowerName) {
+        this.borrowerName = borrowerName;
+    }
+
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 }
