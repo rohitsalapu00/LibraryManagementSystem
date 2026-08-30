@@ -1,483 +1,227 @@
 # 📚 Library Management System
 
-A full-stack Library Management System built with **Java 17**, **Spring Boot**, **Spring Data JPA**, **MySQL**, and a responsive **HTML/CSS/JavaScript + Bootstrap 5** frontend.
+A full-stack Library Management System built with **Java 17, Spring Boot 3.5.4, Spring Data JPA, MySQL 8.4, HTML/CSS/JavaScript, Bootstrap 5.3.3, Docker, Docker Compose, and Jenkins**. It provides a browser UI and REST API for book CRUD, search, pagination, issuing/returning books, persistence, automated tests, containerized deployment, and CI/CD.
 
-The application provides book management through a REST API and web UI, including CRUD operations, book issuing/returning, search, pagination, validation, Dockerized deployment, and a Jenkins CI/CD pipeline.
+## Executive Summary
 
-## ✨ Highlights
+The application uses a conventional layered Spring Boot backend behind a static Nginx frontend. MySQL stores library data. Docker Compose runs `mysql`, `library-app`, and `frontend`; Jenkins automates checkout, Maven compilation/testing/packaging, Docker image builds, deployment, and health checks.
 
-- 📖 Manage books with full CRUD operations
-- 🔎 Search books by title or author
-- 📄 Paginated book listing
-- 📤 Issue books to borrowers with a 7-day due date
-- 📥 Return issued books
-- 🛡️ Validation and centralized exception handling
-- 🗄️ MySQL persistence through Spring Data JPA
-- 🐳 Docker and Docker Compose support
-- 🔄 Jenkins-based build, test, packaging, image creation, deployment, and health checks
-- 📱 Responsive Bootstrap 5 frontend
+```text
+Browser → Nginx Frontend → Spring Boot REST API → Service → JPA Repository → MySQL
+                                      ↑
+                              Jenkins CI/CD
+```
 
----
+## Key Features
 
-## 🛠️ Tech Stack
+- Full book CRUD operations
+- Search by title or author
+- Client-side pagination (5 books/page)
+- Issue and return workflow
+- Seven-day due date when a book is issued
+- Duplicate title + author protection
+- Jakarta validation for title and author
+- Centralized exception handling
+- Dashboard statistics and backend status
+- Responsive Bootstrap UI and toast notifications
+- MySQL persistence with Spring Data JPA/Hibernate
+- Dockerized backend and Nginx frontend
+- Docker Compose orchestration and MySQL health check
+- Jenkins CI/CD with Docker and Compose support
+- JUnit 5 + Mockito service tests
+
+## Technology Stack
 
 | Layer | Technology |
 |---|---|
-| Backend | Java 17, Spring Boot 3.5.4 |
-| REST API | Spring Web |
+| Language | Java 17 |
+| Backend | Spring Boot 3.5.4 |
+| REST | Spring Web |
 | Persistence | Spring Data JPA / Hibernate |
 | Database | MySQL 8.4 |
 | Validation | Jakarta Bean Validation |
 | Frontend | HTML5, CSS3, JavaScript |
-| UI Framework | Bootstrap 5.3.3 |
+| UI | Bootstrap 5.3.3 |
 | Icons | Font Awesome 6.5.2 |
-| Build Tool | Maven |
-| Testing | JUnit 5, Mockito |
-| Containerization | Docker |
+| Build | Maven |
+| Tests | JUnit 5, Mockito |
+| Containers | Docker |
 | Orchestration | Docker Compose |
+| Web server | Nginx Alpine |
 | CI/CD | Jenkins |
-| Web Server | Nginx Alpine |
-| Version Control | Git / GitHub |
+| VCS | Git / GitHub |
 
-## 🏷️ Badges
+![Java 17](https://img.shields.io/badge/Java-17-orange?logo=openjdk) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.4-brightgreen?logo=springboot) ![MySQL](https://img.shields.io/badge/MySQL-8.4-blue?logo=mysql) ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker) ![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins) ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-7952B3?logo=bootstrap)
 
-**Technology**
+## Architecture
 
-![Java 17](https://img.shields.io/badge/Java-17-orange?logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.4-brightgreen?logo=springboot)
-![MySQL](https://img.shields.io/badge/MySQL-8.4-blue?logo=mysql)
-![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apachemaven)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
-![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-7952B3?logo=bootstrap)
-
-**Project status**
-
-![Tests](https://img.shields.io/badge/tests-JUnit%20%2B%20Mockito-informational)
-![License](https://img.shields.io/badge/license-not%20specified-lightgrey)
-
-> **License:** No `LICENSE` file or explicit license declaration is present in the analyzed repository. Add an appropriate license before distributing the project as open source.
-
----
-
-## 📌 Core Features
-
-### Book Management
-
-- Add a new book with title and author
-- View all books
-- View a single book by ID
-- Update an existing book
-- Delete a book
-- Prevent duplicate books with the same title and author
-
-### Borrowing Workflow
-
-- Issue an available book to a borrower
-- Automatically set the issue date
-- Automatically calculate a due date 7 days after issue
-- Prevent issuing a book that is already issued
-- Return an issued book
-- Record the return date
-- Display borrower and circulation details
-
-### Frontend Experience
-
-- Dashboard with total book and author statistics
-- Backend availability indicator
-- Recently added books
-- Search by title or author
-- Five books per page
-- View-book modal
-- Add-book form
-- Edit-book form
-- Delete confirmation
-- Issue/return actions
-- Toast notifications
-- Responsive Bootstrap layout
-
----
-
-## 🏗️ Architecture
-
-The project follows a conventional layered Spring Boot architecture:
-
-```text
-                        ┌──────────────────────┐
-                        │   Browser / Frontend │
-                        │ HTML + JS + Bootstrap│
-                        └──────────┬───────────┘
-                                   │ HTTP / JSON
-                                   ▼
-                        ┌──────────────────────┐
-                        │   BookController     │
-                        │    REST API Layer    │
-                        └──────────┬───────────┘
-                                   │
-                                   ▼
-                        ┌──────────────────────┐
-                        │     BookService      │
-                        │   Business Logic     │
-                        └──────────┬───────────┘
-                                   │
-                                   ▼
-                        ┌──────────────────────┐
-                        │   BookRepository     │
-                        │   Spring Data JPA    │
-                        └──────────┬───────────┘
-                                   │
-                                   ▼
-                        ┌──────────────────────┐
-                        │       MySQL          │
-                        │      librarydb       │
-                        └──────────────────────┘
-```
-
-### DevOps Flow
-
-```text
-Developer
-   │
-   ▼
-Git / GitHub
-   │
-   ▼
-Jenkins
-   │
-   ├── Build
-   ├── Test
-   ├── Package
-   ├── Build Docker Images
-   ├── Deploy with Docker Compose
-   └── Health Check
-   │
-   ▼
-Running Application
-```
-
----
-
-## 📂 Project Structure
+### Repository Structure
 
 ```text
 LibraryManagementSystem/
-│
 ├── frontend/
-│   ├── css/
-│   │   └── style.css
-│   │
-│   ├── js/
-│   │   ├── api.js
-│   │   └── app.js
-│   │
-│   ├── screenshots/
-│   │   ├── About.png
-│   │   ├── AddBooks.png
-│   │   ├── Books.png
-│   │   ├── Home.png
-│   │   ├── docker-container-running.png
-│   │   ├── docker-ps-output.png
-│   │   ├── jenkins-dashboard-success.png
-│   │   └── pipeline-console-success.png
-│   │
-│   ├── about.html
-│   ├── add-book.html
-│   ├── books.html
-│   ├── edit-book.html
+│   ├── css/style.css
+│   ├── js/api.js
+│   ├── js/app.js
 │   ├── index.html
+│   ├── books.html
+│   ├── add-book.html
+│   ├── edit-book.html
+│   ├── about.html
 │   ├── Dockerfile
 │   ├── nginx.conf
 │   └── .dockerignore
-│
+├── jenkins/
+│   └── Dockerfile
+├── screenshots/
 ├── src/
-│   ├── main/
-│   │   ├── java/com/library/
-│   │   │   ├── config/
-│   │   │   │   ├── DataLoader.java
-│   │   │   │   └── WebConfig.java
-│   │   │   │
-│   │   │   ├── controller/
-│   │   │   │   └── BookController.java
-│   │   │   │
-│   │   │   ├── entity/
-│   │   │   │   └── Book.java
-│   │   │   │
-│   │   │   ├── exception/
-│   │   │   │   ├── BookNotFoundException.java
-│   │   │   │   └── GlobalExceptionHandler.java
-│   │   │   │
-│   │   │   ├── repository/
-│   │   │   │   └── BookRepository.java
-│   │   │   │
-│   │   │   ├── service/
-│   │   │   │   └── BookService.java
-│   │   │   │
-│   │   │   └── LibraryManagementSystemApplication.java
-│   │   │
-│   │   └── resources/
-│   │       └── application.properties
-│   │
-│   └── test/
-│       └── java/com/library/service/
-│           └── BookServiceTest.java
-│
+│   ├── main/java/com/library/
+│   │   ├── config/DataLoader.java
+│   │   ├── config/WebConfig.java
+│   │   ├── controller/BookController.java
+│   │   ├── entity/Book.java
+│   │   ├── exception/BookNotFoundException.java
+│   │   ├── exception/GlobalExceptionHandler.java
+│   │   ├── repository/BookRepository.java
+│   │   ├── service/BookService.java
+│   │   └── LibraryManagementSystemApplication.java
+│   ├── main/resources/application.properties
+│   └── test/java/com/library/service/BookServiceTest.java
 ├── Dockerfile
 ├── docker-compose.yml
 ├── Jenkinsfile
 ├── pom.xml
-├── .gitignore
-├── intern PROJECT REPORT.docx
-└── README.md
+├── README.md
+└── intern PROJECT REPORT.docx
 ```
 
-### Backend Package Responsibilities
+### Backend Responsibilities
 
-| Package | Responsibility |
+| Component | Responsibility |
 |---|---|
-| `controller` | Exposes REST endpoints |
-| `service` | Contains book-management business logic |
-| `repository` | Provides database access through Spring Data JPA |
-| `entity` | Defines the `Book` database entity |
-| `exception` | Defines and handles application exceptions |
-| `config` | Seeds initial data and configures web behavior |
+| `BookController` | HTTP/REST endpoints under `/books` |
+| `BookService` | Business rules for books, issuing and returning |
+| `BookRepository` | JPA database access |
+| `Book` | Entity mapped to `books` |
+| `BookNotFoundException` | Missing-book domain exception |
+| `GlobalExceptionHandler` | Maps selected exceptions to HTTP responses |
+| `DataLoader` | Seeds Clean Code and Effective Java when absent |
+| `WebConfig` | Development CORS configuration |
 
----
+## Data Model
 
-## 📋 Book Data Model
-
-The `Book` entity is stored in the `books` table.
+The `Book` entity maps to the `books` table:
 
 | Field | Type | Description |
 |---|---|---|
 | `id` | `int` | Auto-generated primary key |
-| `title` | `String` | Book title; required |
-| `author` | `String` | Book author; required |
+| `title` | `String` | Required title |
+| `author` | `String` | Required author |
 | `status` | `String` | `Available` or `Issued` |
 | `borrowerName` | `String` | Current borrower |
-| `issueDate` | `LocalDate` | Date the book was issued |
+| `issueDate` | `LocalDate` | Issue date |
 | `dueDate` | `LocalDate` | Seven days after issue |
-| `returnDate` | `LocalDate` | Date the book was returned |
+| `returnDate` | `LocalDate` | Return date |
 
 New books default to `Available`.
 
----
+## Quickstart
 
-# 🚀 Getting Started
+### Prerequisites
 
-## Prerequisites
+For local execution: **Java 17+, Maven, MySQL 8.x, Git, and a modern browser**. For the containerized setup: **Docker Desktop with Docker Compose**.
 
-### Option A — Run locally
+### Recommended: Docker Compose
 
-Install:
-
-- Java 17 or later
-- Maven
-- MySQL 8.x
-- Git
-- A modern web browser
-
-### Option B — Run with Docker Compose
-
-Install:
-
-- Docker
-- Docker Compose
-
-This is the simplest way to start MySQL, the Spring Boot backend, and the Nginx frontend together.
-
----
-
-## ⚙️ Configuration
-
-The local Spring Boot configuration uses:
-
-```properties
-server.port=8081
-
-spring.datasource.url=jdbc:mysql://localhost:3306/librarydb
-spring.datasource.username=root
-spring.datasource.password=root123
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-```
-
-The repository also contains a Docker Compose configuration that creates the `librarydb` database and exposes the backend on port `8081` and frontend on port `80`.
-
-> **Production note:** Do not keep database passwords in source control. Use environment variables or a secrets manager for production deployments.
-
----
-
-# 💻 Local Installation
-
-## 1. Clone the repository
+From the repository root:
 
 ```bash
-git clone https://github.com/rohitsalapu00/LibraryManagementSystem
+git clone https://github.com/rohitsalapu00/LibraryManagementSystem.git
 cd LibraryManagementSystem
+docker compose up --build -d
+docker compose ps
 ```
 
-## 2. Create the MySQL database
+Open:
 
-Start MySQL and create the database:
+- Frontend: `http://localhost/`
+- Backend API: `http://localhost:8081/books`
+- MySQL: `localhost:3306`
+
+Logs:
+
+```bash
+docker compose logs -f library-app
+docker compose logs -f frontend
+docker compose logs -f mysql
+```
+
+Stop:
+
+```bash
+docker compose down
+```
+
+Remove containers **and database volume**:
+
+```bash
+docker compose down -v
+```
+
+> `down -v` removes the persistent `mysql-data` volume and therefore deletes its stored database data.
+
+### Local Backend + Frontend
+
+Create the database:
 
 ```sql
 CREATE DATABASE librarydb;
 ```
 
-Make sure the MySQL credentials match your local configuration.
+The current local properties use `localhost:3306`, database `librarydb`, user `root`, and password `root123`.
 
-## 3. Build the backend
+Build/test/run:
 
 ```bash
 mvn clean package
-```
-
-To run the tests separately:
-
-```bash
 mvn test
-```
-
-## 4. Start the Spring Boot backend
-
-```bash
 mvn spring-boot:run
 ```
 
-The backend runs on:
+Backend runs at `http://localhost:8081`.
 
-```text
-http://localhost:8081
-```
-
-The REST API base URL is:
-
-```text
-http://localhost:8081/books
-```
-
-## 5. Start the frontend
-
-The frontend is a static website.
-
-For local development, serve the `frontend/` directory with a local HTTP server. For example, if Python is installed:
+For the static frontend:
 
 ```bash
 cd frontend
 python3 -m http.server 5500
 ```
 
-Then open:
+Open `http://localhost:5500`.
+
+> Docker Compose is preferred for the complete application because it supplies the MySQL service and uses the Compose hostname `mysql` for backend-to-database communication.
+
+## Configuration
+
+Current Spring Boot settings include:
+
+```properties
+server.port=8081
+spring.datasource.url=jdbc:mysql://localhost:3306/librarydb
+spring.datasource.username=root
+spring.datasource.password=root123
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+```
+
+Docker Compose overrides the datasource URL for the backend with:
 
 ```text
-http://localhost:5500
+jdbc:mysql://mysql:3306/librarydb
 ```
 
-The frontend JavaScript is configured to call:
-
-```text
-http://localhost:8081/books
-```
-
----
-
-# 🐳 Docker Compose Setup
-
-Docker Compose starts three services:
-
-```text
-mysql
-   │
-   ▼
-library-app
-   │
-   ▼
-frontend
-```
-
-The Compose configuration uses:
-
-- MySQL 8.4
-- Spring Boot backend on port `8081`
-- Nginx frontend on port `80`
-- A persistent `mysql-data` volume
-- A MySQL health check before starting the backend
-
-## 1. Build and start everything
-
-From the project root:
-
-```bash
-docker compose up --build -d
-```
-
-## 2. Check running containers
-
-```bash
-docker compose ps
-```
-
-You should see services corresponding to:
-
-```text
-mysql
-library-app
-frontend
-```
-
-## 3. Open the application
-
-Frontend:
-
-```text
-http://localhost/
-```
-
-Backend API:
-
-```text
-http://localhost:8081/books
-```
-
-## 4. View logs
-
-Backend:
-
-```bash
-docker compose logs -f library-app
-```
-
-Frontend:
-
-```bash
-docker compose logs -f frontend
-```
-
-MySQL:
-
-```bash
-docker compose logs -f mysql
-```
-
-## 5. Stop the application
-
-```bash
-docker compose down
-```
-
-To also remove the persistent database volume:
-
-```bash
-docker compose down -v
-```
-
-> Removing the volume deletes the MySQL data stored by this Compose deployment.
-
----
-
-# 🔌 REST API Reference
+## REST API Reference
 
 Base URL:
 
@@ -485,687 +229,253 @@ Base URL:
 http://localhost:8081/books
 ```
 
-## Get all books
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/books` | List all books |
+| `GET` | `/books/{id}` | Get one book |
+| `POST` | `/books` | Add a book |
+| `PUT` | `/books/{id}` | Update a book |
+| `DELETE` | `/books/{id}` | Delete a book |
+| `PUT` | `/books/issue/{id}?borrowerName={name}` | Issue a book |
+| `PUT` | `/books/return/{id}` | Return a book |
 
-```http
-GET /books
-```
-
-Example:
+### Get all books
 
 ```bash
 curl http://localhost:8081/books
 ```
 
-Example response:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "Clean Code",
-    "author": "Robert C. Martin",
-    "status": "Available",
-    "borrowerName": null,
-    "issueDate": null,
-    "dueDate": null,
-    "returnDate": null
-  }
-]
-```
-
-## Get a book by ID
-
-```http
-GET /books/{id}
-```
-
-Example:
+### Get one book
 
 ```bash
 curl http://localhost:8081/books/1
 ```
 
-If the book does not exist, the backend raises `BookNotFoundException` and returns HTTP `404`.
+A missing book raises `BookNotFoundException` and is handled as HTTP `404`.
 
----
-
-## Add a book
-
-```http
-POST /books
-Content-Type: application/json
-```
-
-Example:
+### Add a book
 
 ```bash
 curl -X POST http://localhost:8081/books \
   -H "Content-Type: application/json" \
-  -d '{
-    "title": "Effective Java",
-    "author": "Joshua Bloch"
-  }'
+  -d '{"title":"Effective Java","author":"Joshua Bloch"}'
 ```
 
-The service assigns `Available` when no status is supplied.
+A missing status becomes `Available`. A duplicate title + author is rejected.
 
-Duplicate title + author combinations are rejected.
-
----
-
-## Update a book
-
-```http
-PUT /books/{id}
-Content-Type: application/json
-```
-
-Example:
+### Update a book
 
 ```bash
 curl -X PUT http://localhost:8081/books/1 \
   -H "Content-Type: application/json" \
-  -d '{
-    "title": "Clean Code - Updated",
-    "author": "Robert C. Martin"
-  }'
+  -d '{"title":"Clean Code - Updated","author":"Robert C. Martin"}'
 ```
 
----
-
-## Delete a book
-
-```http
-DELETE /books/{id}
-```
-
-Example:
+### Delete a book
 
 ```bash
 curl -X DELETE http://localhost:8081/books/1
 ```
 
-Successful deletion returns:
+Successful deletion returns `Book deleted successfully.`
 
-```text
-Book deleted successfully.
-```
-
----
-
-## Issue a book
-
-```http
-PUT /books/issue/{id}?borrowerName={name}
-```
-
-Example:
+### Issue a book
 
 ```bash
-curl -X PUT \
-  "http://localhost:8081/books/1/issue?borrowerName=Jyothi"
+curl -X PUT "http://localhost:8081/books/issue/1?borrowerName=Jyothi"
 ```
 
-When a book is issued:
+The service sets `status=Issued`, stores the borrower, sets `issueDate` to today, sets `dueDate` to today + 7 days, and clears `returnDate`. An already issued book is rejected.
 
-- `status` becomes `Issued`
-- `borrowerName` is stored
-- `issueDate` becomes the current date
-- `dueDate` becomes 7 days after the issue date
-- `returnDate` is cleared
-
-An already issued book cannot be issued again.
-
----
-
-## Return a book
-
-```http
-PUT /books/return/{id}
-```
-
-Example:
+### Return a book
 
 ```bash
 curl -X PUT http://localhost:8081/books/return/1
 ```
 
-When returned:
+The service sets `status=Available` and `returnDate` to today.
 
-- `status` becomes `Available`
-- `returnDate` becomes the current date
+## Frontend Modules
 
----
+- `index.html` — dashboard, statistics, quick actions, architecture/feature overview
+- `books.html` — book table, search, pagination, view/edit/delete/issue/return
+- `add-book.html` — create-book form
+- `edit-book.html` — update-book form
+- `about.html` — project and technology information
+- `js/api.js` — API calls, rendering, search, pagination and issue/return logic
+- `js/app.js` — page-load initialization
+- `css/style.css` — application styling
+- `nginx.conf` — Nginx static-site configuration
 
-# 🖥️ Using the Web Interface
+## Testing
 
-## Dashboard
-
-Open:
-
-```text
-http://localhost/
-```
-
-The home page provides:
-
-- Total books
-- Total authors
-- Backend status
-- MySQL status indicator
-- Docker status indicator
-- Recently added books
-- Quick actions
-- Project architecture and feature overview
-
-## Add a book
-
-1. Open **Add Book**.
-2. Enter the title.
-3. Enter the author.
-4. Click **Save Book**.
-5. The frontend sends a `POST /books` request.
-6. After success, it redirects to the Books page.
-
-Empty title or author values are rejected by the frontend and backend validation.
-
-## Search books
-
-1. Open **Books**.
-2. Enter a keyword in the search box.
-3. The frontend filters books by title or author.
-4. Matching results are displayed immediately.
-
-## View book details
-
-Click **View** beside a book.
-
-The modal displays:
-
-- ID
-- Title
-- Author
-- Status
-- Borrower
-- Issue date
-- Due date
-- Return date
-
-## Edit a book
-
-1. Click **Edit**.
-2. The application opens `edit-book.html?id=<id>`.
-3. Existing book details are loaded.
-4. Modify the title or author.
-5. Click **Update Book**.
-
-## Delete a book
-
-1. Click **Delete**.
-2. Confirm the browser confirmation dialog.
-3. The frontend sends a `DELETE` request.
-4. The book list refreshes after successful deletion.
-
-## Issue a book
-
-1. Find an `Available` book.
-2. Click **Issue**.
-3. Enter the borrower name.
-4. The frontend sends the issue request.
-5. The book changes to `Issued`.
-
-## Return a book
-
-For an `Issued` book:
-
-1. Click **Return**.
-2. The frontend sends the return request.
-3. The status changes back to `Available`.
-
----
-
-# 🧪 Testing
-
-The project contains unit tests for `BookService` using **JUnit 5** and **Mockito**.
-
-The tests cover:
-
-- Getting all books
-- Getting a book by ID
-- Handling a missing book
-- Adding a book
-- Rejecting duplicate books
-- Updating a book
-- Deleting an existing book
-- Handling deletion of a missing book
-- Issuing a book
-- Preventing duplicate issuance
-- Returning a book
-
-Run:
+`BookServiceTest` uses JUnit 5 and Mockito and covers retrieval, missing-book handling, creation, duplicate detection, update, deletion, issuing, duplicate issuance prevention, and returning.
 
 ```bash
 mvn test
-```
-
-Run a full build:
-
-```bash
 mvn clean package
 ```
 
----
+## Docker Details
 
-# 🔄 Jenkins CI/CD Pipeline
+### Backend image
 
-The repository includes a `Jenkinsfile` defining the CI/CD workflow.
-
-The pipeline performs:
-
-```text
-Build
-  ↓
-Test
-  ↓
-Package
-  ↓
-Build Backend Docker Image
-  ↓
-Build Frontend Docker Image
-  ↓
-Deploy Application
-  ↓
-Health Check
-```
-
-### Pipeline stages
-
-| Stage | Command / Purpose |
-|---|---|
-| Build | `mvn clean compile` |
-| Test | `mvn test` |
-| Package | `mvn clean package -DskipTests` |
-| Backend image | Builds the Spring Boot Docker image |
-| Frontend image | Builds the Nginx Docker image |
-| Deploy | `docker compose down` + `docker compose up --build -d` |
-| Health Check | Checks backend `/books` and frontend `/` |
-
-Jenkins also publishes JUnit results from:
-
-```text
-target/surefire-reports/*.xml
-```
-
-The health check waits for the backend to become available before marking the deployment successful.
-
----
-
-# 🐋 Docker Images
-
-## Backend
-
-The root `Dockerfile` uses a Java 17 runtime image:
-
-```dockerfile
-FROM eclipse-temurin:17-jre
-
-WORKDIR /app
-
-COPY target/LibraryManagementSystem-1.0-SNAPSHOT.jar app.jar
-
-EXPOSE 8081
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
-Build manually:
+The root `Dockerfile` uses `eclipse-temurin:17-jre`, copies `target/LibraryManagementSystem-1.0-SNAPSHOT.jar` to `app.jar`, exposes `8081`, and starts it with `java -jar app.jar`.
 
 ```bash
 mvn clean package
 docker build -t librarymanagementsystem-library-app .
 ```
 
-Run manually:
+### Frontend image
 
-```bash
-docker run --rm -p 8081:8081 \
-  librarymanagementsystem-library-app
-```
-
-> The backend container expects the configured database to be reachable. Docker Compose is recommended because it provides the MySQL service and the correct internal database hostname.
-
-## Frontend
-
-The frontend is served by Nginx:
-
-```dockerfile
-FROM nginx:alpine
-
-COPY . /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-Build manually:
+`frontend/Dockerfile` uses `nginx:alpine`, copies the static site to `/usr/share/nginx/html`, and exposes port `80`.
 
 ```bash
 docker build -t librarymanagementsystem-frontend ./frontend
 ```
 
-Run manually:
-
-```bash
-docker run --rm -p 80:80 \
-  librarymanagementsystem-frontend
-```
-
----
-
-# 🔐 Security & Production Notes
-
-The repository is suitable as a learning/demo project, but several items should be addressed before a public production deployment.
-
-### 1. Move database credentials out of source control
-
-The current configuration contains:
-
-```properties
-spring.datasource.username=root
-spring.datasource.password=root123
-```
-
-Use environment variables or a secrets manager instead.
-
-### 2. Use a dedicated database user
-
-Avoid using the MySQL `root` account for the application.
-
-Create a restricted application user with only the permissions it needs.
-
-### 3. Restrict CORS
-
-The controller currently allows all origins:
-
-```java
-@CrossOrigin(origins = "*")
-```
-
-`WebConfig` also contains development origins for:
+### Compose topology
 
 ```text
-http://127.0.0.1:5500
-http://localhost:5500
+mysql (3306)
+   │ healthcheck
+   ▼
+library-app (8081)
+   │
+   ▼
+frontend (80)
 ```
 
-For production, allow only the actual frontend origin.
+MySQL uses the persistent `mysql-data` volume. The backend depends on MySQL being healthy before startup.
 
-### 4. Add authentication and authorization
+## Jenkins CI/CD
 
-The current API does not contain an authentication layer.
+The repository contains a `Jenkinsfile` with this workflow:
 
-A production library system should consider:
-
-- Spring Security
-- User accounts
-- Roles such as librarian/admin/user
-- Protected write operations
-- Secure password storage
-
-### 5. Improve API error consistency
-
-The current exception handler covers `BookNotFoundException` and `IllegalArgumentException`. A production API could standardize all errors into a JSON structure such as:
-
-```json
-{
-  "timestamp": "2026-08-30T20:00:00",
-  "status": 400,
-  "error": "Bad Request",
-  "message": "Book with the same title and author already exists",
-  "path": "/books"
-}
+```text
+Checkout
+   ↓
+Build (mvn clean compile)
+   ↓
+Test (mvn test)
+   ↓
+Package (mvn clean package -DskipTests)
+   ↓
+Build backend Docker image
+   ↓
+Build frontend Docker image
+   ↓
+Deploy with Docker Compose
+   ↓
+Health Check
 ```
 
-### 6. Use database migrations
+The health check uses `curl` against `http://host.docker.internal:8081/books` and `http://host.docker.internal/` from the Jenkins environment and prints Compose status/container logs when a check fails.
 
-Instead of relying on:
+The custom `jenkins/Dockerfile` starts from `jenkins/jenkins:lts-jdk17` and installs Docker CLI, Maven, curl, and Docker Compose v5.4.0. For the Dockerized Jenkins setup to control the host Docker daemon, the Jenkins container is run with `/var/run/docker.sock` mounted. The local setup used by this project runs Jenkins as a Docker container.
 
-```properties
-spring.jpa.hibernate.ddl-auto=update
+## Troubleshooting
+
+### Maven says there is no POM
+
+Run Maven from the checked-out repository workspace containing `pom.xml`:
+
+```bash
+pwd
+ls
+mvn clean compile
 ```
 
-consider Flyway or Liquibase for controlled schema migrations.
+### Docker build cannot find the JAR
 
-### 7. Add stronger validation
+The backend Dockerfile expects:
 
-Consider validating:
+```text
+target/LibraryManagementSystem-1.0-SNAPSHOT.jar
+```
 
-- Borrower name
-- Maximum field lengths
-- Allowed status values
-- Update rules for issued books
-- Duplicate handling during updates
+Run:
 
----
+```bash
+mvn clean package
+ls -l target/*.jar
+docker build -t librarymanagementsystem-library-app .
+```
 
-# 🗺️ Roadmap
+### Jenkins cannot access Docker
 
-Potential improvements for future versions:
+Verify inside Jenkins:
 
-- [ ] Add authentication and role-based authorization
-- [ ] Add separate `User` and `Borrower` entities
-- [ ] Add book categories and ISBN
-- [ ] Add author management
-- [ ] Add advanced filtering and sorting
-- [ ] Add server-side pagination
-- [ ] Add overdue-book detection
-- [ ] Add fine calculation
-- [ ] Add borrowing history
-- [ ] Add dashboard charts
-- [ ] Add REST API documentation with OpenAPI/Swagger
-- [ ] Add integration tests
-- [ ] Add Testcontainers for database testing
-- [ ] Add Flyway/Liquibase migrations
-- [ ] Move secrets to environment variables
-- [ ] Add structured logging and monitoring
-- [ ] Add CI quality gates
-- [ ] Publish versioned Docker images
-- [ ] Add production deployment configuration
+```bash
+docker exec jenkins-server docker ps
+docker exec jenkins-server docker compose version
+```
 
----
+If Docker permission errors occur, verify that the Jenkins container has `/var/run/docker.sock` mounted and that the container user can access it. The current local setup uses `--user root` when running Jenkins.
 
-# 🤝 Contributing
+### Jenkins says `not in a git directory`
 
-Contributions are welcome.
+This can occur when Jenkins' cached Pipeline SCM workspace/script state is corrupted. Clear the affected Jenkins workspace/cache and rerun the job after confirming the repository URL and Jenkinsfile configuration.
 
-## Development workflow
+## Security and Production Notes
 
-1. Fork the repository.
-2. Create a feature branch:
+This is primarily a learning/demo project. Before production use:
+
+- Move database credentials to environment variables/secrets management.
+- Do not use the MySQL `root` account for the application.
+- Restrict CORS. The controller currently allows `*`, while `WebConfig` also contains development origins.
+- Add authentication and authorization, such as Spring Security and librarian/admin/user roles.
+- Standardize API error responses.
+- Prefer Flyway/Liquibase over `ddl-auto=update` for controlled schema migrations.
+- Add stronger validation and business rules.
+- Treat a mounted Docker socket in Jenkins as a high-privilege capability.
+- Add integration tests and production monitoring.
+
+## Development Workflow
 
 ```bash
 git checkout -b feature/your-feature
-```
-
-3. Make your changes.
-4. Run the tests:
-
-```bash
 mvn test
-```
-
-5. Build the application:
-
-```bash
 mvn clean package
-```
-
-6. Test the Docker Compose deployment if your changes affect deployment:
-
-```bash
 docker compose up --build -d
-```
-
-7. Commit your changes:
-
-```bash
 git add .
 git commit -m "feat: describe your change"
-```
-
-8. Push your branch:
-
-```bash
 git push origin feature/your-feature
 ```
 
-9. Open a Pull Request.
+## Future Improvements
 
-## Contribution guidelines
+- Authentication and role-based authorization
+- User/Borrower entities
+- ISBN and categories
+- Advanced filtering/sorting
+- Server-side pagination
+- Overdue detection and fines
+- Borrowing history
+- Swagger/OpenAPI documentation
+- Integration tests and Testcontainers
+- Flyway/Liquibase migrations
+- Environment-based secrets
+- Structured logging/monitoring
+- CI quality gates and versioned Docker images
 
-- Keep changes focused and easy to review.
-- Follow the existing package structure.
-- Add or update tests for backend behavior changes.
-- Do not commit passwords, API keys, tokens, or other secrets.
-- Update this README when setup or behavior changes.
-- Verify Docker Compose after changes to deployment configuration.
-
----
-
-# 🧹 Useful Commands
-
-### Maven
-
-```bash
-mvn clean
-mvn compile
-mvn test
-mvn clean package
-mvn spring-boot:run
-```
-
-### Docker Compose
-
-```bash
-docker compose up --build -d
-docker compose ps
-docker compose logs -f
-docker compose down
-docker compose down -v
-```
-
-### Git
-
-```bash
-git status
-git add .
-git commit -m "your message"
-git push
-```
-
----
-
-# 📊 Application Flow
-
-```text
-User
- │
- ▼
-Bootstrap Frontend
- │
- │ Fetch /books
- ▼
-Spring Boot REST API
- │
- ▼
-BookController
- │
- ▼
-BookService
- │
- ▼
-BookRepository
- │
- ▼
-MySQL
- │
- ▼
-JSON Response
- │
- ▼
-Frontend UI
-```
-
-For an issue operation:
-
-```text
-User clicks "Issue"
-        │
-        ▼
-Enter borrower name
-        │
-        ▼
-PUT /books/issue/{id}?borrowerName=...
-        │
-        ▼
-Check book exists
-        │
-        ▼
-Check status != Issued
-        │
-        ▼
-status = Issued
-issueDate = today
-dueDate = today + 7 days
-returnDate = null
-        │
-        ▼
-Save to MySQL
-        │
-        ▼
-Refresh book list
-```
-
----
-
-# 👥 Project Team
-
-The frontend project information identifies the following developers:
+## Project Team
 
 - **Salapu Rohit**
 - **Salla Vamsi Ram**
 - **Malla Jyothi Prakash**
 
-**B.Tech Computer Science & Engineering**  
-**Lovely Professional University**
+B.Tech Computer Science & Engineering, Lovely Professional University.
+
+## Additional Documentation
+
+The repository also includes `intern PROJECT REPORT.docx` and project screenshots under `screenshots/`.
+
+## License
+
+No explicit open-source license is currently included in the repository. Add a `LICENSE` file if the project is intended for public reuse.
 
 ---
 
-## 📄 Project Documentation
-
-The repository also contains:
-
-```text
-intern PROJECT REPORT.docx
-```
-
-Use the project report alongside this README for academic/project documentation.
-
----
-
-## 📜 License
-
-No explicit open-source license is currently included in the repository.
-
-If this project is intended for public reuse, add a `LICENSE` file and replace the badge above with the selected license.
-
----
-
-## ⭐ Acknowledgement
-
-Built as a full-stack and DevOps-oriented Library Management System demonstrating:
-
-**Java → Spring Boot → REST API → JPA → MySQL → Docker → Jenkins → Bootstrap**
-
+**Project flow:** Java → Spring Boot → REST API → JPA/Hibernate → MySQL → Docker → Docker Compose → Jenkins → Nginx/Bootstrap frontend.
