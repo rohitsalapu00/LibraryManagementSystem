@@ -48,6 +48,38 @@ pipeline {
                 '''
             }
         }
+
+        stage('Health Check') {
+            steps {
+                sh '''
+                    echo "Checking backend..."
+
+                    backend_ready=false
+
+                    for i in {1..10}; do
+                        if curl -f http://localhost:8081/books; then
+                            backend_ready=true
+                            echo "Backend is healthy!"
+                            break
+                        fi
+
+                        echo "Backend not ready yet. Waiting..."
+                        sleep 3
+                    done
+
+                    if [ "$backend_ready" != "true" ]; then
+                        echo "Backend health check failed!"
+                        exit 1
+                    fi
+
+                    echo "Checking frontend..."
+
+                    curl -f http://localhost/
+
+                    echo "Frontend is healthy!"
+                '''
+            }
+        }
     }
 
     post {
