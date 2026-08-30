@@ -8,6 +8,13 @@ pipeline {
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/rohitsalapu00/LibraryManagementSystem.git'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
@@ -15,15 +22,10 @@ pipeline {
         }
 
         stage('Test') {
-    steps {
-        sh 'mvn test'
-    }
-    post {
-        always {
-            junit 'target/surefire-reports/*.xml'
+            steps {
+                sh 'mvn test'
+            }
         }
-    }
-}
 
         stage('Package') {
             steps {
@@ -48,8 +50,15 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 sh '''
+                    echo "Stopping existing application containers..."
+
                     docker compose down --remove-orphans || true
-                    docker compose up --build -d
+
+                    echo "Starting application containers..."
+
+                    docker compose up -d
+
+                    echo "Application deployment completed!"
                 '''
             }
         }
@@ -61,27 +70,36 @@ pipeline {
 
                     backend_ready=false
 
-                    for i in {1..10}; do
-                        if curl -f http://localhost:8081/books; then
+                    for i in {1..10}
+                    do
+                        if curl -f http://localhost:8081/books
+                        then
                             backend_ready=true
                             echo "Backend is healthy!"
                             break
+                        else
+                            echo "Backend not ready yet. Waiting..."
+                            sleep 3
                         fi
-
-                        echo "Backend not ready yet. Waiting..."
-                        sleep 3
                     done
 
-                    if [ "$backend_ready" != "true" ]; then
+                    if [ "$backend_ready" != "true" ]
+                    then
                         echo "Backend health check failed!"
                         exit 1
                     fi
 
                     echo "Checking frontend..."
 
-                    curl -f http://localhost/
+                    if curl -f http://localhost/
+                    then
+                        echo "Frontend is healthy!"
+                    else
+                        echo "Frontend health check failed!"
+                        exit 1
+                    fi
 
-                    echo "Frontend is healthy!"
+                    echo "All health checks passed!"
                 '''
             }
         }
