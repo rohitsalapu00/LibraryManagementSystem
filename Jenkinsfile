@@ -59,6 +59,8 @@ pipeline {
                     docker compose up -d
 
                     echo "Application deployment completed!"
+
+                    docker compose ps
                 '''
             }
         }
@@ -66,19 +68,21 @@ pipeline {
         stage('Health Check') {
             steps {
                 sh '''
-                    echo "Checking backend..."
+                    echo "Waiting for backend to become healthy..."
 
                     backend_ready=false
 
-                    for i in {1..10}
+                    for i in $(seq 1 10)
                     do
-                        if curl -f http://localhost:8081/books
+                        echo "Backend health check attempt $i/10..."
+
+                        if curl -f http://host.docker.internal:8081/books
                         then
                             backend_ready=true
                             echo "Backend is healthy!"
                             break
                         else
-                            echo "Backend not ready yet. Waiting..."
+                            echo "Backend not ready yet. Waiting 3 seconds..."
                             sleep 3
                         fi
                     done
@@ -86,16 +90,30 @@ pipeline {
                     if [ "$backend_ready" != "true" ]
                     then
                         echo "Backend health check failed!"
+
+                        echo "Docker containers:"
+                        docker compose ps
+
+                        echo "Backend container logs:"
+                        docker compose logs --tail=50 library-app
+
                         exit 1
                     fi
 
                     echo "Checking frontend..."
 
-                    if curl -f http://localhost/
+                    if curl -f http://host.docker.internal/
                     then
                         echo "Frontend is healthy!"
                     else
                         echo "Frontend health check failed!"
+
+                        echo "Docker containers:"
+                        docker compose ps
+
+                        echo "Frontend container logs:"
+                        docker compose logs --tail=50 frontend
+
                         exit 1
                     fi
 
