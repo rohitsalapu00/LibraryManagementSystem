@@ -21,7 +21,7 @@ The Library Management System allows users to:
 
 The application consists of three main services:
 
-````text
+```text
 Frontend
    │
    ▼
@@ -29,6 +29,7 @@ Spring Boot Backend
    │
    ▼
 MySQL Database
+
 🏗️ Project Architecture
 Developer
     │
@@ -49,6 +50,7 @@ Developer
         │     │     │
         ▼     ▼     ▼
      MySQL Backend Frontend
+
 ⚙️ Technologies Used
 Technology	Purpose
 Java 17	Programming Language
@@ -66,6 +68,7 @@ Jenkins	CI/CD Automation
 Git	Version Control
 GitHub	Source Code Repository
 Nginx	Frontend Web Server
+
 ✨ Features
 📚 Library Features
 Add a new book
@@ -78,6 +81,7 @@ Return books
 Track borrower information
 Track issue, due, and return dates
 Prevent duplicate books
+
 🛡️ Validation
 
 The backend validates:
@@ -87,6 +91,7 @@ Empty author name
 Duplicate title and author
 Issuing an already issued book
 Invalid book IDs
+
 🧪 Testing
 
 The project contains unit tests for BookService.
@@ -99,6 +104,7 @@ Errors: 0
 Skipped: 0
 
 BUILD SUCCESS
+
 🚫 Duplicate Book Prevention
 
 Duplicate books are prevented using the repository method:
@@ -142,6 +148,7 @@ LibraryManagementSystem/
 ├── Jenkinsfile
 ├── pom.xml
 └── README.md
+
 🤖 Jenkins CI/CD Pipeline
 
 The project uses a Declarative Jenkins Pipeline.
@@ -163,6 +170,7 @@ Build Frontend Docker Image
 Deploy Application
    ↓
 Health Check
+
 🔄 Jenkins Pipeline Stages
 Stage	Description
 Checkout SCM	Gets the latest source code from GitHub
@@ -194,6 +202,7 @@ Frontend is healthy!
 CI/CD Pipeline Completed Successfully!
 
 Finished: SUCCESS
+
 🐳 Docker
 
 The application uses multiple Docker containers.
@@ -216,6 +225,7 @@ The application uses multiple Docker containers.
 │       MySQL         │
 │     Port 3306       │
 └─────────────────────┘
+
 🐳 Docker Containers
 
 After deployment, the following application containers are running:
@@ -240,6 +250,7 @@ View Application Logs
 docker compose logs
 View Backend Logs
 docker compose logs library-app
+
 🤖 Jenkins
 
 Jenkins is used to automate the CI/CD process.
@@ -261,6 +272,7 @@ Docker Build
 Docker Compose
    ↓
 Deployment
+
 💻 Running the Project Locally
 1. Clone the Repository
 git clone https://github.com/rohitsalapu00/LibraryManagementSystem.git
@@ -272,6 +284,7 @@ mvn clean package
 mvn test
 5. Start the Application with Docker
 docker compose up --build -d
+
 🌐 Application URLs
 Frontend
 http://localhost/
@@ -297,6 +310,7 @@ Issue Book
 PUT /books/{id}/issue
 Return Book
 PUT /books/{id}/return
+
 🗄️ Database
 
 The application uses:
@@ -319,6 +333,7 @@ borrowerName
 issueDate
 dueDate
 returnDate
+
 📊 Current Database Status
 
 The database was verified after deployment.
@@ -365,6 +380,7 @@ Tests run: 11
 Failures: 0
 Errors: 0
 Skipped: 0
+
 📸 Screenshots
 
 Screenshots can be stored in the screenshots directory.
@@ -379,6 +395,7 @@ screenshots/
 ├── docker-ps-output.png
 ├── jenkins-dashboard-success.png
 └── pipeline-console-success.png
+
 ⚠️ Challenges Faced
 Maven PATH
 
@@ -433,6 +450,7 @@ CI/CD
 Git
 GitHub
 Linux command-line tools
+
 🎯 Project Outcome
 
 The project demonstrates a complete development and deployment workflow:
@@ -460,6 +478,7 @@ MySQL + Backend + Frontend
 Health Checks
  ↓
 Running Application
+
 🔮 Future Enhancements
 
 Possible future improvements include:
@@ -474,6 +493,7 @@ Grafana dashboards
 More automated tests
 Authentication and authorization
 Role-based access control
+
 👨‍💻 Developed By
 Member	Contribution
 Salapu Rohit	Spring Boot Development, GitHub Repository Management
@@ -484,6 +504,7 @@ All members are pursuing:
 
 B.Tech Computer Science & Engineering
 Lovely Professional University
+
 📂 Repository
 
 GitHub Repository:
@@ -504,16 +525,15 @@ Deployment	Docker Compose
 Web Server	Nginx
 Version Control	Git & GitHub
 Java Version	17
+
 ⭐ Conclusion
 
 This project demonstrates how a Spring Boot application can be integrated with GitHub, Jenkins, Maven, Docker, Docker Compose, and MySQL to create an automated CI/CD workflow.
 
 The pipeline successfully builds, tests, packages, containerizes, deploys, and performs health checks on the application.
 
-<div align="center">
-⭐ Thank You for Visiting Our Repository ⭐
+                                    ⭐ Thank You for Visiting Our Repository ⭐
 
-Library Management System Team
+                                         Library Management System Team
 
-</div> ```
-````
+```
